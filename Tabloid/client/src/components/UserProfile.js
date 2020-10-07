@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from 'reactstrap';
 
 export default function UserProfile({ user }) {
     return (
@@ -11,6 +12,11 @@ export default function UserProfile({ user }) {
             </td>
             <td>
                 {user.userType.name}
+            </td>
+            <td>
+                <Button color="info">Details</Button>{' '}
+                <Button color="warning">Edit</Button>{' '}
+                <Button color="danger">Deactivate</Button>{' '}
             </td>
         </tr>
     )

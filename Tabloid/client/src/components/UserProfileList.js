@@ -10,7 +10,7 @@ export default function UserProfileList() {
     }, []);
 
     return (
-        <div>
+        <div className="container pt-5">
             <h1>Users</h1>
             <table className="table table-striped">
                 <tbody>
