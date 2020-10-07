@@ -6,6 +6,7 @@ import Register from "./Register";
 import Hello from "./Hello";
 import Post from "./post/PostCard";
 import PostList from "./post/PostList";
+import UserProfileList from "./UserProfileList";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -19,6 +20,10 @@ export default function ApplicationViews() {
 
         <Route path="/post">
           <PostList />
+        </Route>
+
+        <Route path="/userprofiles">
+          {isLoggedIn ? <UserProfileList /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/login">

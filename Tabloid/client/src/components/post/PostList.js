@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { PostContext } from "../../providers/PostProvider";
-import PostCard from "./PostCard"
+import Post from "./Post"
 
 const PostList = () => {
     const { posts, getAllPosts } = useContext(PostContext);
@@ -34,7 +34,7 @@ const PostList = () => {
                 </thead>
                 <tbody>
                     {posts.map((post) => (
-                        <PostCard key={post.id} post={post} />
+                        <Post key={post.id} post={post} />
                     ))}
                 </tbody>
             </table>
