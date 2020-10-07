@@ -19,7 +19,7 @@ export default function Header() {
   return (
     <div>
       <Navbar expand="md" className="nav__color">
-        <NavbarBrand tag={RRNavLink} to="/" className="nav__color">
+        <NavbarBrand tag={RRNavLink} to="/" className="brand__color">
           TABLOID
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
@@ -28,7 +28,12 @@ export default function Header() {
             {/* When isLoggedIn === true, we will render the Home link */}
             {isLoggedIn && (
               <NavItem>
-                <NavLink tag={RRNavLink} to="/" activeClassName="selected">
+                <NavLink
+                  tag={RRNavLink}
+                  to="/"
+                  exact
+                  activeClassName="selected"
+                >
                   Home
                 </NavLink>
               </NavItem>
@@ -37,22 +42,24 @@ export default function Header() {
           <Nav className="mr-auto" navbar>
             {/* When isLoggedIn === true, we will render the Home link */}
             {isLoggedIn && (
-              <NavItem>
-                <NavLink className="navlink__color" tag={RRNavLink} to="/">
-                  TAG MANAGEMENT
-                </NavLink>
-              </NavItem>
-            )}
-            {/* When isLoggedIn === true, we will render the Home link */}
-            {isLoggedIn && (
               <>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/">
-                    Home
+                  <NavLink
+                    className="navlink__color"
+                    tag={RRNavLink}
+                    to="/tags"
+                    activeClassName="selected"
+                  >
+                    Tag Management
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/userprofiles">
+                  <NavLink
+                    className="navlink__color"
+                    tag={RRNavLink}
+                    to="/userprofiles"
+                    activeClassName="selected"
+                  >
                     User Profiles
                   </NavLink>
                 </NavItem>

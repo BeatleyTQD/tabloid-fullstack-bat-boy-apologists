@@ -40,6 +40,10 @@ Nav a:hover {
   color: #625772;
 }
 
+.brand__color:hover {
+  color: none;
+}
+
 .selected {
   color: greenyellow;
 }
