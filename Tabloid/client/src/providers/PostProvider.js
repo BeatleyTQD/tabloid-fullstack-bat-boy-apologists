@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, createContext, useEffect, useContext } from "react";
 
-export const PostContext = React.createContext();
+export const PostContext = createContext();
 
 export const PostProvider = (props) => {
     const [posts, setPosts] = useState([]);

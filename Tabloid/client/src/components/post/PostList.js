@@ -13,9 +13,9 @@ const PostList = () => {
         <div className="container pt-5">
             <h1>Posts</h1>
             <p>
-                <a class="btn btn-primary">New Post</a>
+                <a className="btn btn-primary">New Post</a>
             </p>
-            <table class="table table-striped">
+            <table className="table table-striped">
                 <thead>
                     <tr>
                         <th>
@@ -30,6 +30,7 @@ const PostList = () => {
                         <th>
                             Published
                         </th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

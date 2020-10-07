@@ -4,7 +4,7 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
-import Post from "./post/PostCard";
+import Post from "./post/Post";
 import PostList from "./post/PostList";
 import UserProfileList from "./UserProfileList";
 

@@ -8,17 +8,17 @@ const Post = ({ post }) => {
                 {post.title}
             </td>
             <td>
-                {post.userProfile.name}
+                {post.userProfile.displayName}
             </td>
             <td>
                 {post.category.name}
             </td>
             <td>
-                {post.publishDateTime}
+                {new Intl.DateTimeFormat('en-US').format(new Date(post.publishDateTime))}
             </td>
             <td>
-                <Link to={`/posts/${post.id}`} class="btn btn-outline-primary mx-1" title="View">
-                    <i class="fas fa-eye"></i>
+                <Link to={`/post/${post.id}`} className="btn btn-outline-primary mx-1" title="View">
+                    <i className="fas fa-eye"></i>
                 </Link>
 
                 {/* <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary mx-1" title="Edit">
