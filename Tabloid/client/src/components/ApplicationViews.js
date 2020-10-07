@@ -5,6 +5,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
 import UserProfileList from "./UserProfileList";
+import UserProfileDetails from "./UserProfileDetails";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -16,9 +17,13 @@ export default function ApplicationViews() {
           {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
         </Route>
 
-        <Route path="/userprofiles">
+        <Route path="/userprofiles" exact>
           {isLoggedIn ? <UserProfileList /> : <Redirect to="/login" />}
         </Route>
+
+        {/* <Route path="/userprofiles/1">
+          <UserProfileDetails />
+        </Route> */}
 
         <Route path="/login">
           <Login />
