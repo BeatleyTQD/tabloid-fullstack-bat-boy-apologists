@@ -5,6 +5,7 @@ import { UserProfileContext } from '../providers/UserProfileProvider';
 export default function UserProfileList() {
     const { users, getAllUsers } = useContext(UserProfileContext);
 
+    //Gets all users to display upon initial render
     useEffect(() => {
         getAllUsers();
     }, []);
