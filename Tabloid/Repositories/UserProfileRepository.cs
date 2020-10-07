@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using Tabloid.Models;
 using Tabloid.Utils;
 
@@ -8,6 +9,18 @@ namespace Tabloid.Repositories
     {
         public UserProfileRepository(IConfiguration configuration) : base(configuration) { }
 
+     /*   public List<UserProfile> GetAll()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+
+                }
+            }
+        }
+     */
         public UserProfile GetByFirebaseUserId(string firebaseUserId)
         {
             using (var conn = Connection)
