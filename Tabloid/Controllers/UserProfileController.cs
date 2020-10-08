@@ -42,8 +42,9 @@ namespace Tabloid.Controllers
             return Ok(_userProfileRepository.GetAll());
         }
 
+        
         [Authorize]
-        [HttpGet("{id}")]
+        [HttpGet("details/{id}")]
         public IActionResult Get(int id)
         {
             var user = _userProfileRepository.GetById(id);
@@ -53,5 +54,6 @@ namespace Tabloid.Controllers
             }
             return Ok(user);
         }
+        
     }
 }

@@ -21,13 +21,14 @@ export default function ApplicationViews() {
         <Route path="/tags">
           {isLoggedIn ? <TagList /> : <Redirect to="/login" />}
         </Route>
-        <Route path="/userprofiles">
+
+        <Route path="/userprofiles" exact>
           {isLoggedIn ? <UserProfileList /> : <Redirect to="/login" />}
         </Route>
 
-        {/* <Route path="/userprofiles/1">
+        <Route path="/userprofiles/:id" exact>
           <UserProfileDetails />
-        </Route> */}
+        </Route>
 
         <Route path="/login">
           <Login />

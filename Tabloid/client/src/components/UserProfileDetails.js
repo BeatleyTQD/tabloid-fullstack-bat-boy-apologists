@@ -1,17 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { UserProfileContext } from '../providers/UserProfileProvider';
 
-export default function UserProfileDetails(id) {
+export default function UserProfileDetails() {
     const { getUserById } = useContext(UserProfileContext);
     const [user, setUser] = useState();
+    const { id } = useParams();
 
     useEffect(() => {
         getUserById(id)
             .then(setUser);
     }, []);
+    console.log(user);
 
-    console.log(user)
-    
     return (
         <div className="container pt-5">
             <h4>User Details</h4>
