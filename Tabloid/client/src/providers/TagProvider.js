@@ -20,8 +20,20 @@ export const TagProvider = (props) => {
         .then(setTags)
     );
 
+  const addTag = (tag) => {
+    getToken().then((token) =>
+      fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(tag),
+      }));
+  };
+
   return (
-    <TagContext.Provider value={{ tags, getAllTags }}>
+    <TagContext.Provider value={{ tags, getAllTags, addTag }}>
       {props.children}
     </TagContext.Provider>
   );

@@ -3,20 +3,20 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
-import Hello from "./Hello";
 import Post from "./post/Post";
 import PostList from "./post/PostList";
 import Home from "./Home";
 import UserProfileList from "./UserProfileList";
 import UserProfileDetails from "./UserProfileDetails";
-import TagList from "./TagList";
+import TagList from "./Tag/TagList";
+import TagForm from "./Tag/TagForm";
 import CategoryList from "./Category/CategoryList";
 import PostDetail from "./post/PostDetail";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
-  
-  
+
+
   return (
     <main className="main__applicationViews">
       <Switch>
@@ -35,8 +35,12 @@ export default function ApplicationViews() {
           <PostDetail />
         </Route>
 
-        <Route path="/tags">
+        <Route path="/tags" exact>
           {isLoggedIn ? <TagList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/tags/add">
+          {isLoggedIn ? <TagForm /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/userprofiles" exact>
