@@ -5,10 +5,11 @@ import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 import { PostProvider } from './providers/PostProvider';
 import { TagProvider } from "./providers/TagProvider";
-
+import {CategoryProvider} from "./providers/CategoryProvider";
 function App() {
   return (
     <Router>
+      <CategoryProvider>
       <UserProfileProvider>
         <PostProvider>
           <Header />
@@ -17,6 +18,7 @@ function App() {
           </TagProvider>
         </PostProvider>
       </UserProfileProvider>
+      </CategoryProvider>
     </Router>
   );
 }
