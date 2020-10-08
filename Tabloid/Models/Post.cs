@@ -28,7 +28,6 @@ namespace Tabloid.Models
         [Required]
         [DisplayName("Category")]
         public int CategoryId { get; set; }
-
         public Category Category { get; set; }
 
         [DisplayName("Author")]
@@ -46,7 +45,7 @@ namespace Tabloid.Models
                     char[] delimiters = new char[] { ' ', '\r', '\n' };
                     int count = Content.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).Length;
                     float minutes = count / 265f;
-                    minutesRounded = (int)Math.Ceiling(minutes);
+                    minutesRounded = (int) Math.Ceiling(minutes);
                 }
 
                 return minutesRounded;

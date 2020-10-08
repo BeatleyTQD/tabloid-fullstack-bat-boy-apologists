@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext } from "react";
 import { NavLink as RRNavLink } from "react-router-dom";
 import {
   Collapse,
@@ -7,8 +7,8 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink
-} from 'reactstrap';
+  NavLink,
+} from "reactstrap";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 
 export default function Header() {
@@ -18,45 +18,90 @@ export default function Header() {
 
   return (
     <div>
-      <Navbar color="light" light expand="md">
-        <NavbarBrand tag={RRNavLink} to="/">Tabloid</NavbarBrand>
+      <Navbar expand="md" className="nav__color">
+        <NavbarBrand tag={RRNavLink} to="/" className="brand__color">
+          TABLOID
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            { /* When isLoggedIn === true, we will render the Home link */}
-            {isLoggedIn &&
+            {/* When isLoggedIn === true, we will render the Home link */}
+            {isLoggedIn && (
+              <NavItem>
+                <NavLink
+                  tag={RRNavLink}
+                  to="/"
+                  exact
+                  activeClassName="selected"
+                >
+                  Home
+                </NavLink>
+              </NavItem>
+            )}
+          </Nav>
+          <Nav className="mr-auto" navbar>
+            {/* When isLoggedIn === true, we will render the Home link */}
+            {isLoggedIn && (
               <>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/">Home</NavLink>
+                  <NavLink
+                    className="navlink__color"
+                    tag={RRNavLink}
+                    to="/tags"
+                    activeClassName="selected"
+                  >
+                    Tag Management
+                  </NavLink>
                 </NavItem>
                 <NavItem>
+<<<<<<< HEAD
                   <NavLink tag={RRNavLink} to="/post">Posts</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/userprofiles">User Profiles</NavLink>
+=======
+                  <NavLink
+                    className="navlink__color"
+                    tag={RRNavLink}
+                    to="/userprofiles"
+                    activeClassName="selected"
+                  >
+                    User Profiles
+                  </NavLink>
+>>>>>>> e3d0d4bdef0469d861a892baccf6194b2b32c907
                 </NavItem>
               </>
-            }
+            )}
           </Nav>
           <Nav navbar>
-            {isLoggedIn &&
+            {isLoggedIn && (
               <>
                 <NavItem>
-                  <a aria-current="page" className="nav-link"
-                    style={{ cursor: "pointer" }} onClick={logout}>Logout</a>
+                  <a
+                    aria-current="page"
+                    className="nav-link"
+                    style={{ cursor: "pointer" }}
+                    onClick={logout}
+                  >
+                    Logout
+                  </a>
                 </NavItem>
               </>
-            }
-            {!isLoggedIn &&
+            )}
+            {!isLoggedIn && (
               <>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/login">Login</NavLink>
+                  <NavLink tag={RRNavLink} to="/login">
+                    Login
+                  </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/register">Register</NavLink>
+                  <NavLink tag={RRNavLink} to="/register">
+                    Register
+                  </NavLink>
                 </NavItem>
               </>
-            }
+            )}
           </Nav>
         </Collapse>
       </Navbar>

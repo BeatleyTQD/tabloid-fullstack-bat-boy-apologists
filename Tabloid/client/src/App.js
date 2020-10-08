@@ -1,19 +1,22 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { UserProfileProvider } from "./providers/UserProfileProvider";
 import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 import { PostProvider } from './providers/PostProvider';
+import { TagProvider } from "./providers/TagProvider";
 
 function App() {
   return (
     <Router>
-      <PostProvider>
-        <UserProfileProvider>
+      <UserProfileProvider>
+        <PostProvider>
           <Header />
-          <ApplicationViews />
-        </UserProfileProvider>
-      </PostProvider>
+          <TagProvider>
+            <ApplicationViews />
+          </TagProvider>
+        </PostProvider>
+      </UserProfileProvider>
     </Router>
   );
 }
