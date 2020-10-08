@@ -1,4 +1,4 @@
-﻿namespace TabloidMVC.Models
+﻿namespace Tabloid.Models
 {
     public class Category
     {

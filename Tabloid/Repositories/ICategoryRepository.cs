@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using TabloidMVC.Models;
+using Tabloid.Models;
 
-namespace TabloidMVC.Repositories
+namespace Tabloid.Repositories
 {
     public interface ICategoryRepository
     {
