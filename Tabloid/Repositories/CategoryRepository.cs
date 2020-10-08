@@ -41,5 +41,20 @@ namespace Tabloid.Repositories
         }
 
 
+        public void CreateCategory(Category category)
+        {
+
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"";
+                }
+            }
+
+        }
+
+
     }
 }
