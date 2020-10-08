@@ -11,11 +11,11 @@ import UserProfileList from "./UserProfileList";
 import UserProfileDetails from "./UserProfileDetails";
 import TagList from "./TagList";
 import CategoryList from "./Category/CategoryList";
+import PostDetail from "./post/PostDetail";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
-  // let isAdmin = sessionStorage.getItem("userProfile");
-  // isAdmin.search('"name":"Admin"')
+  
   
   return (
     <main className="main__applicationViews">
@@ -24,11 +24,15 @@ export default function ApplicationViews() {
           {isLoggedIn ? <Home /> : <Redirect to="/login" />}
         </Route>
 
-        <Route path="/post">
+        <Route path="/post" exact>
           {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
         </Route>
         <Route path="/category" exact>
           {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"Admin"') != -1 ? <CategoryList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/post/:id" exact>
+          <PostDetail />
         </Route>
 
         <Route path="/tags">
