@@ -14,6 +14,7 @@ const TagForm = () => {
         console.log(stateToChange)
     };
 
+    //works half the time? Sporadically? Will never redirect to list, despite my best efforts and refactoring the code ten different ways.
     const makeNewTag = () => {
         addTag(tag)
     }
