@@ -18,10 +18,9 @@ const Post = ({ post }) => {
                 {new Intl.DateTimeFormat('en-US').format(new Date(post.publishDateTime))}
             </td>
             <td>
-                <Button color="info">Details</Button>{' '}
-                {/* <Link to={`/post/${post.id}`} className="btn btn-outline-primary mx-1" title="View">
-                    <i className="fas fa-eye"></i>
-                </Link> */}
+                <Link to={`/post/${post.id}`} className="btn btn-info" title="Details">
+                    Details
+                </Link>
 
                 {/*
                  <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary mx-1" title="Edit">
