@@ -53,6 +53,19 @@ export default function Header() {
                     Tag Management
                   </NavLink>
                 </NavItem>
+                {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"Admin"') != -1 ? 
+                <NavItem>
+                <NavLink
+                  className="navlink__color"
+                  tag={RRNavLink}
+                  to="/category"
+                  activeClassName="selected"
+                >
+                  Categories
+                </NavLink>
+              </NavItem>
+                : null}
+                
                 <NavItem>
                   <NavLink tag={RRNavLink} className="navlink__color" activeClassName="selected" to="/post">Posts</NavLink>
                 </NavItem>
