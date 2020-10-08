@@ -14,7 +14,9 @@ import CategoryList from "./Category/CategoryList";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
-
+  // let isAdmin = sessionStorage.getItem("userProfile");
+  // isAdmin.search('"name":"Admin"')
+  
   return (
     <main className="main__applicationViews">
       <Switch>
@@ -26,7 +28,7 @@ export default function ApplicationViews() {
           {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
         </Route>
         <Route path="/category" exact>
-          {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
+          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"Admin"') != -1 ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/tags">
