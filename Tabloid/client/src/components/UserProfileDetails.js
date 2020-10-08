@@ -13,22 +13,26 @@ export default function UserProfileDetails() {
     }, []);
     console.log(user);
 
+
+    if (!user) {
+        return null;
+    }
     return (
         <div className="container pt-5">
             <h4>User Details</h4>
             <dl>
                 <dt className="col-sm-2">Full Name</dt>
-                <dd class="col-sm-10">{user.fullName}</dd>
+                <dd className="col-sm-10">{user.fullName}</dd>
                 <dt className="col-sm-2">Display Name</dt>
-                <dd class="col-sm-10">{user.displayName}</dd>
+                <dd className="col-sm-10">{user.displayName}</dd>
                 <dt className="col-sm-2">Email</dt>
-                <dd class="col-sm-10">{user.email}</dd>
+                <dd className="col-sm-10">{user.email}</dd>
                 <dt className="col-sm-2">Join Date</dt>
-                <dd class="col-sm-10">{user.createDateTime}</dd>
+                <dd className="col-sm-10">{user.createDateTime}</dd>
                 <dt className="col-sm-2">User Type</dt>
-                <dd class="col-sm-10">{user.userName.name}</dd>
+                <dd className="col-sm-10">{user.userType.name}</dd>
                 <dt className="col-sm-2">Profile Image</dt>
-                <dd class="col-sm-10"><img src={user.imageLocation}></img></dd>
+                <dd className="col-sm-10"><img src={user.imageLocation}></img></dd>
             </dl>
         </div>
     )
