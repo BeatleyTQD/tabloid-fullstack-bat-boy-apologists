@@ -54,12 +54,9 @@ export default function Header() {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-<<<<<<< HEAD
-                  <NavLink tag={RRNavLink} to="/post">Posts</NavLink>
+                  <NavLink tag={RRNavLink} className="navlink__color" activeClassName="selected" to="/post">Posts</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/userprofiles">User Profiles</NavLink>
-=======
                   <NavLink
                     className="navlink__color"
                     tag={RRNavLink}
@@ -68,7 +65,6 @@ export default function Header() {
                   >
                     User Profiles
                   </NavLink>
->>>>>>> e3d0d4bdef0469d861a892baccf6194b2b32c907
                 </NavItem>
               </>
             )}

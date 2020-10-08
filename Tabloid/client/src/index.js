@@ -11,14 +11,10 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
-<<<<<<< HEAD
 ReactDOM.render(
   <App />,
   document.getElementById('root')
 );
-=======
-ReactDOM.render(<App />, document.getElementById("root"));
->>>>>>> e3d0d4bdef0469d861a892baccf6194b2b32c907
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
