@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 const TagForm = () => {
     const [tag, setTag] = useState({ name: "" })
-    const { addTag, getAllTags } = useContext(TagContext);
+    const { addTag } = useContext(TagContext);
     const history = useHistory();
 
     const handleFieldChange = evt => {
