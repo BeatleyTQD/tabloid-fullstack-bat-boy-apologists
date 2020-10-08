@@ -25,7 +25,7 @@ export default function ApplicationViews() {
         <Route path="/post">
           {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
         </Route>
-        <Route path="/category">
+        <Route path="/category" exact>
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
 

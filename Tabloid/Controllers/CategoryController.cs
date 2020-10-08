@@ -22,7 +22,7 @@ namespace Tabloid.Controllers
         }
 
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public IActionResult Get()
         {

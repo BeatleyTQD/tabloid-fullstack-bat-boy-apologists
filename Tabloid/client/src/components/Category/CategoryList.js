@@ -1,14 +1,14 @@
 import React, {useContext, useEffect} from "react";
 import Category from "./Category"
 import {Button} from "reactstrap";
-import CategoryContext from "../../providers/CategoryProvider";
+import {CategoryContext} from "../../providers/CategoryProvider";
 
 
-export default function CategoryList() {
-    const {category, getAllCategory} = useContext(CategoryContext);
+const CategoryList = () => {
+    const {category, getAllCategories} = useContext(CategoryContext);
 
     useEffect(() => {
-        getAllCategory();
+        getAllCategories();
     }, []);
 
     return (
@@ -25,8 +25,8 @@ export default function CategoryList() {
             </tr>
           </thead>
           <tbody>
-            {category.map((category) => (
-              <Category key={category.id} tag={category} />
+            {category.map((element) => (
+              <Category key={element.id} category={element} />
             ))}
           </tbody>
         </table>
@@ -34,3 +34,5 @@ export default function CategoryList() {
     )
 
 }
+
+export default CategoryList;
