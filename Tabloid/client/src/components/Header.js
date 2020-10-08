@@ -54,6 +54,16 @@ export default function Header() {
                   </NavLink>
                 </NavItem>
                 <NavItem>
+                  <NavLink
+                    className="navlink__color"
+                    tag={RRNavLink}
+                    to="/category"
+                    activeClassName="selected"
+                  >
+                    Categories
+                  </NavLink>
+                </NavItem>
+                <NavItem>
                   <NavLink tag={RRNavLink} className="navlink__color" activeClassName="selected" to="/post">Posts</NavLink>
                 </NavItem>
                 <NavItem>

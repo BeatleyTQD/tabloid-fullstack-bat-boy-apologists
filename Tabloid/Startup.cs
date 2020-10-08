@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Tabloid.Repositories;
-using TabloidMVC.Repositories;
 
 namespace Tabloid
 {

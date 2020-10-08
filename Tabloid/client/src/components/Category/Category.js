@@ -2,8 +2,8 @@ import React, { useContext, useEffect } from "react";
 import { Button } from "reactstrap";
 
 
-export default Category = ({category}) => {
-
+const Category = ({ category }) => {
+return (
     <tr>
         <td>{category.Name}</td>
         <td>
@@ -11,4 +11,7 @@ export default Category = ({category}) => {
         <Button color="danger">Delete</Button>{" "}
       </td>
     </tr>
+)
 }
+
+export default Category;
