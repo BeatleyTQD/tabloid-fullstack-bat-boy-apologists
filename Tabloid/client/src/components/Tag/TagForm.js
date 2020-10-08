@@ -4,14 +4,13 @@ import { useHistory } from 'react-router-dom';
 
 const TagForm = () => {
     const [tag, setTag] = useState({ name: "" })
-    const { addTag } = useContext(TagContext);
+    const { addTag, getAllTags } = useContext(TagContext);
     const history = useHistory();
 
     const handleFieldChange = evt => {
         const stateToChange = tag;
         stateToChange[evt.target.id] = evt.target.value;
         setTag(stateToChange);
-        console.log(tag)
     };
 
     const makeNewTag = () => {
