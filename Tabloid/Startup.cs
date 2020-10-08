@@ -7,7 +7,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Tabloid.Repositories;
 
-
 namespace Tabloid
 {
     public class Startup
