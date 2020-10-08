@@ -191,9 +191,9 @@ namespace Tabloid.Repositories
                             @IsApproved, @CategoryId, @UserProfileId )";
                     cmd.Parameters.AddWithValue("@Title", post.Title);
                     cmd.Parameters.AddWithValue("@Content", post.Content);
-                    cmd.Parameters.AddWithValue("@ImageLocation", post.ImageLocation ?? (object) DBNull.Value);
+                    cmd.Parameters.AddWithValue("@ImageLocation", post.ImageLocation ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@CreateDateTime", post.CreateDateTime);
-                    cmd.Parameters.AddWithValue("@PublishDateTime", post.PublishDateTime ?? (object) DBNull.Value);
+                    cmd.Parameters.AddWithValue("@PublishDateTime", post.PublishDateTime ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@IsApproved", post.IsApproved);
                     cmd.Parameters.AddWithValue("@CategoryId", post.CategoryId);
                     cmd.Parameters.AddWithValue("@UserProfileId", post.UserProfileId);
@@ -280,9 +280,9 @@ namespace Tabloid.Repositories
 
                     cmd.Parameters.AddWithValue("@Title", post.Title);
                     cmd.Parameters.AddWithValue("@Content", post.Content);
-                    cmd.Parameters.AddWithValue("@ImageLocation", post.ImageLocation ?? (object) DBNull.Value);
+                    cmd.Parameters.AddWithValue("@ImageLocation", post.ImageLocation ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@CreateDateTime", post.CreateDateTime);
-                    cmd.Parameters.AddWithValue("@PublishDateTime", post.PublishDateTime ?? (object) DBNull.Value);
+                    cmd.Parameters.AddWithValue("@PublishDateTime", post.PublishDateTime ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@CategoryId", post.CategoryId);
                     cmd.Parameters.AddWithValue("@UserProfileId", post.UserProfileId);
                     cmd.Parameters.AddWithValue("@Id", post.Id);
