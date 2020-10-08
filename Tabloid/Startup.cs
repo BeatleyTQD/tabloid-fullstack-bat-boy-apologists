@@ -8,7 +8,6 @@ using Microsoft.IdentityModel.Tokens;
 using Tabloid.Repositories;
 using TabloidMVC.Repositories;
 
-
 namespace Tabloid
 {
     public class Startup
