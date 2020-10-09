@@ -52,11 +52,10 @@ namespace Tabloid.Repositories
                     cmd.CommandText = @"INSERT INTO Category (Name) VALUES (@name);";
                     cmd.Parameters.AddWithValue("@name", category.Name);
 
-                    //category.Id = (int) cmd.ExecuteScalar();
                     cmd.ExecuteNonQuery();
 
                 }
-                conn.Close();
+               
             }
 
         }
