@@ -49,8 +49,14 @@ namespace Tabloid.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"";
+                    cmd.CommandText = @"INSERT INTO Category (Name) VALUES (@name);";
+                    cmd.Parameters.AddWithValue("@name", category.Name);
+
+                    //category.Id = (int) cmd.ExecuteScalar();
+                    cmd.ExecuteNonQuery();
+
                 }
+                conn.Close();
             }
 
         }
@@ -58,3 +64,4 @@ namespace Tabloid.Repositories
 
     }
 }
+ 

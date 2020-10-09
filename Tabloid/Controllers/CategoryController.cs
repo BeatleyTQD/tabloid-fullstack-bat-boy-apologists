@@ -34,7 +34,9 @@ namespace Tabloid.Controllers
         [HttpPost]
         public IActionResult Post(Category category)
         {
-            //return Ok(_categoryRepository.GetAll());
+            _categoryRepository.CreateCategory(category);
+
+            return CreatedAtAction("Get", new { id = category.Id }, category);
 
         }
     }
