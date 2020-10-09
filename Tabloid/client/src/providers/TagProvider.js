@@ -20,8 +20,19 @@ export const TagProvider = (props) => {
         .then(setTags)
     );
 
-  const addTag = (tag) => {
+  const getTagById = (id) =>
     getToken().then((token) =>
+      fetch(`${apiUrl}/${id}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => res.json()));
+
+  const addTag = (tag) => {
+    return getToken().then((token) =>
       fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -32,8 +43,21 @@ export const TagProvider = (props) => {
       }));
   };
 
+  const updateTag = (tag) => {
+    return getToken().then((token) => {
+      fetch(`${apiUrl}/${tag.id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(tag),
+      })
+    });
+  }
+
   return (
-    <TagContext.Provider value={{ tags, getAllTags, addTag }}>
+    <TagContext.Provider value={{ tags, getAllTags, getTagById, addTag, updateTag }}>
       {props.children}
     </TagContext.Provider>
   );
