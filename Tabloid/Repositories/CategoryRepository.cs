@@ -61,6 +61,16 @@ namespace Tabloid.Repositories
         }
 
 
+    //    Update Post SET CategoryId =
+    //(SELECT c.id FROM Category c
+
+    //    WHERE c.Name = 'Other') WHERE post.CategoryId = 2;
+
+
+
+    //    DELETE Category WHERE id = 2;
+
+
     }
 }
  
