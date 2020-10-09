@@ -23,12 +23,16 @@ export default function ApplicationViews() {
     <main className="main__applicationViews">
       <Switch>
 
+        <Route path="/" exact>
+          {isLoggedIn ? <Home /> : <Redirect to="/login" />}
+        </Route>
+
         <Route path="/category/add">
           {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"Admin"') != -1 ? <CategoryForm /> : <Redirect to="/login" />}
         </Route>
 
-        <Route path="/" exact>
-          {isLoggedIn ? <Home /> : <Redirect to="/login" />}
+        <Route path="/category" exact>
+          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"Admin"') != -1 ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
 
 
@@ -39,10 +43,6 @@ export default function ApplicationViews() {
 
         <Route path="/post/add" exact>
           {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
-        </Route>
-
-        <Route path="/category" exact>
-          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"Admin"') != -1 ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/post/:id" exact>
