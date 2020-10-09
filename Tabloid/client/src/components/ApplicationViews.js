@@ -20,7 +20,7 @@ export default function ApplicationViews() {
 
 
   return (
-    <>
+    <main className="main__applicationViews">
       <Switch>
 
         <Route path="/category/add">
@@ -81,6 +81,6 @@ export default function ApplicationViews() {
           <Register />
         </Route>
       </Switch>
-    </>
+    </main>
   );
 }

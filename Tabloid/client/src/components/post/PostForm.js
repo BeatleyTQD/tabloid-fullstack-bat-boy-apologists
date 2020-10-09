@@ -14,7 +14,7 @@ import { useHistory } from "react-router-dom";
 
 const PostForm = () => {
     const { addPost } = useContext(PostContext);
-    const [post, setPost] = useState({ title: "", isApproved: true, content: "", imageLocation: null, createDateTime: "", publishDateTime: "", categoryId: 0, userProfileId: 0 })
+    const [post, setPost] = useState({ title: "", isApproved: true, content: "", imageLocation: undefined, createDateTime: "", publishDateTime: "", categoryId: 0, userProfileId: 0 })
     const { category, getAllCategories } = useContext(CategoryContext);
     const [isLoading, setIsLoading] = useState(false);
 
