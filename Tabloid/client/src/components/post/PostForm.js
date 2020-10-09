@@ -38,7 +38,7 @@ const PostForm = () => {
         post.userProfileId = currentUser.id;
         post.categoryId = parseInt(post.categoryId);
         addPost(post).then((p) => {
-            history.push("/post");
+            history.push(`/post/${p.id}`);
         });
     };
 
