@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Tabloid.Models;
 using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
@@ -27,6 +28,16 @@ namespace Tabloid.Controllers
         public IActionResult Get()
         {
             return Ok(_categoryRepository.GetAll());
+        }
+
+
+        [HttpPost]
+        public IActionResult Post(Category category)
+        {
+            _categoryRepository.CreateCategory(category);
+
+            return CreatedAtAction("Get", new { id = category.Id }, category);
+
         }
     }
 }
