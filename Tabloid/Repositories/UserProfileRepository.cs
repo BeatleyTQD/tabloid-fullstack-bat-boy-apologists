@@ -225,6 +225,24 @@ namespace Tabloid.Repositories
             }
         }
 
+        public void ReactivateUser(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE UserProfile
+                                           SET IsDeactivated = @IsDeactivated
+                                        WHERE id = @id";
+
+                    cmd.Parameters.AddWithValue("@IsDeactivated", 0);
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
         public void Add(UserProfile userProfile)
         {
             using (var conn = Connection)

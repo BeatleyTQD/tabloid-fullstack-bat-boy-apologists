@@ -37,10 +37,13 @@ export default function UserProfileList() {
         </div>
       <h1>Users</h1>
       <table className="table table-striped">
-        <th>Full Names</th>
+        <thead>
+        <tr><th>Full Names</th>
         <th>User Names</th>
         <th>User Type</th>
-        <th>Actions</th>
+        <th>Actions</th></tr>
+        </thead>
+        
         <tbody>
           {users.map((u) => (
             <UserProfile key={u.id} user={u} />

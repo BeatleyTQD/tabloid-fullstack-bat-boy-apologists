@@ -11,5 +11,6 @@ namespace Tabloid.Repositories
         UserProfile GetByFirebaseUserId(string firebaseUserId);
         void DeleteUser(int id);
         List<UserProfile> GetDeactivated();
+        void ReactivateUser(int id);
     }
 }

@@ -98,6 +98,25 @@ export function UserProfileProvider(props) {
       );
     };
 
+    const reactivateUserProfile = (id) => {
+      return getToken().then((token) =>
+        fetch(`${apiUrl}/reactivate/${id}`, {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          }
+        }).then(function (response) {
+          if (!response.ok) {
+              return false;
+          }
+      
+          return response.ok;
+      
+      })
+        );
+      };
+
   const getAllUsers = () =>
     getToken().then((token) =>
       fetch(apiUrl, {
@@ -145,7 +164,8 @@ export function UserProfileProvider(props) {
         users,
         getAllUsers,
         getUserById,
-        getDeactivatedUsers
+        getDeactivatedUsers,
+        reactivateUserProfile
       }}
     >
       {isFirebaseReady ? (

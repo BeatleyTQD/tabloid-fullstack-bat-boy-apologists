@@ -13,7 +13,7 @@ import { useHistory } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 
 export default function UserProfile({ user }) {
-  const { deactivateUserProfile, getAllUsers }  = useContext(UserProfileContext);
+  const { deactivateUserProfile,getAllUsers, getDeactivatedUsers,reactivateUserProfile }  = useContext(UserProfileContext);
   const history = useHistory();
   
   const [showAlertDialog, setShowAlertDialog] = React.useState(false);
@@ -24,6 +24,13 @@ export default function UserProfile({ user }) {
   const [showDialog, setShowDialog] = React.useState(false);
   const open = () => setShowDialog(true);
   const close = () => setShowDialog(false);
+
+  const activateUser = () => {
+    reactivateUserProfile(user.id)
+    .then((u) => {
+      getDeactivatedUsers();
+    })
+  }
 
   const Details = () => {
     history.push(`userprofiles/${user.id}`);
@@ -54,7 +61,7 @@ export default function UserProfile({ user }) {
         {(user.isDeactivated === 0) ? <Button color="danger" onClick={openAlert}>
           Deactivate
         </Button> :
-        <Button color="primary" onClick={openAlert}>
+        <Button color="primary" onClick={activateUser}>
           Activate
         </Button> }
         {" "}
@@ -72,7 +79,7 @@ export default function UserProfile({ user }) {
           </div>
         </AlertDialog>
       )}
-       <Dialog isOpen={showDialog} onDismiss={close}  className="dialogborder">
+       <Dialog isOpen={showDialog} onDismiss={close}  className="dialogborder" aria-label="Warning">
         <button className="close-button" onClick={close}>
           <VisuallyHidden>Close</VisuallyHidden>
           <span aria-hidden>Close</span>
