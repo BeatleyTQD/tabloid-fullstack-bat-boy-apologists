@@ -25,9 +25,9 @@ const PostDetail = () => {
             </div>
         </section>
     }
-
+    console.log(post)
     return (
-        <div className="container pt-5">
+        <div className="container">
             <div className="post">
                 <section className="px-3">
                     <div className="row justify-content-between">

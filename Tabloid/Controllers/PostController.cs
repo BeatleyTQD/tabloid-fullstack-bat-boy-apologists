@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tabloid.Models;
@@ -19,12 +20,14 @@ namespace Tabloid.Controllers
             _postRepository = postRepository;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Get()
         {
             return Ok(_postRepository.GetAllPublishedPosts());
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -36,6 +39,7 @@ namespace Tabloid.Controllers
             return Ok(post);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Post(Post post)
         {
@@ -43,6 +47,7 @@ namespace Tabloid.Controllers
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult Put(int id, Post post)
         {
@@ -54,7 +59,8 @@ namespace Tabloid.Controllers
             _postRepository.UpdatePost(post);
             return NoContent();
         }
-
+            
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
