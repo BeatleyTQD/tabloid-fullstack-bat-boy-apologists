@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import Post from "./Post"
+import { Link } from "react-router-dom";
 
 const PostList = () => {
     const { posts, getAllPosts } = useContext(PostContext);
@@ -9,11 +10,12 @@ const PostList = () => {
         getAllPosts();
     }, []);
 
+
     return (
-        <div className="container pt-5">
+        <div className="container">
             <h1>Posts</h1>
             <p>
-                <a className="btn btn-primary">New Post</a>
+                <Link to={`/post/add`} className="btn btn-primary" title="New Post">New Post</Link>
             </p>
             <table className="table table-striped">
                 <thead>

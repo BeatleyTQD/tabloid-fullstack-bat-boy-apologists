@@ -3,6 +3,15 @@ import { Button } from 'reactstrap';
 import { Link } from "react-router-dom";
 
 const Post = ({ post }) => {
+
+    const currentUser = JSON.parse(sessionStorage.userProfile)
+    const currentUserId = currentUser.id
+
+    let userCheck;
+    if (post.userProfileId === currentUserId) {
+        userCheck = <> <Link to={`/post/${post.id}`} className="btn btn-warning" title="Edit">Edit</Link> <Link to={`/post/${post.id}`} className="btn btn-danger" title="Delete">Delete</Link></>
+    }
+
     return (
         <tr>
             <td>
@@ -21,6 +30,8 @@ const Post = ({ post }) => {
                 <Link to={`/post/${post.id}`} className="btn btn-info" title="Details">
                     Details
                 </Link>
+
+                {userCheck}
 
                 {/*
                  <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary mx-1" title="Edit">

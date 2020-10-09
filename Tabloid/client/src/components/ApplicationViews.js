@@ -13,6 +13,7 @@ import TagForm from "./Tag/TagForm";
 import TagEditForm from "./Tag/TagEditForm";
 import CategoryList from "./Category/CategoryList";
 import PostDetail from "./post/PostDetail";
+import PostForm from "./post/PostForm";
 import CategoryForm from "./Category/CategoryForm"
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -23,9 +24,9 @@ export default function ApplicationViews() {
       <Switch>
 
         <Route path="/category/add">
-          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"Admin"') != -1  ? <CategoryForm /> : <Redirect to="/login" />}
+          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"Admin"') != -1 ? <CategoryForm /> : <Redirect to="/login" />}
         </Route>
-        
+
         <Route path="/" exact>
           {isLoggedIn ? <Home /> : <Redirect to="/login" />}
         </Route>
@@ -35,6 +36,11 @@ export default function ApplicationViews() {
         <Route path="/post" exact>
           {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
         </Route>
+
+        <Route path="/post/add" exact>
+          {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
+        </Route>
+
         <Route path="/category" exact>
           {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"Admin"') != -1 ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
