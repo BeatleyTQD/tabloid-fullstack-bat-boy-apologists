@@ -1,12 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { TagContext } from '../../providers/TagProvider';
-
 import { Button, Modal, ModalHeader, ModalFooter } from "reactstrap";
 import { useHistory, useParams } from 'react-router-dom';
 
 
 export default function Tag({ tag }) {
-  const { deleteTag } = useContext(TagContext);
+  const { deleteTag, getAllTags } = useContext(TagContext);
   const { id } = useParams();
   const intId = parseInt(id);
   const history = useHistory();
@@ -20,7 +19,7 @@ export default function Tag({ tag }) {
   const Delete = () => {
     deleteTag(tag.id)
       .then(toggle)
-      .then((p) => history.push('/tags'))
+      .then(getAllTags)
   }
 
   return (

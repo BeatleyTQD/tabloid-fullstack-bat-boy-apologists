@@ -17,7 +17,7 @@ const TagForm = () => {
 
     const makeNewTag = () => {
         addTag(tag)
-            .then((p) => history.push('/tags'));
+            .then(() => history.push("/tags"));
     };
 
 
