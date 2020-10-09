@@ -39,5 +39,12 @@ namespace Tabloid.Controllers
             return CreatedAtAction("Get", new { id = category.Id }, category);
 
         }
+
+
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        { 
+
+        }
     }
 }
