@@ -68,7 +68,7 @@ namespace Tabloid.Repositories
 
 
 
-    //    DELETE Category WHERE id = 2;
+    // DELETE Category WHERE id = 2;
 
 
     }
