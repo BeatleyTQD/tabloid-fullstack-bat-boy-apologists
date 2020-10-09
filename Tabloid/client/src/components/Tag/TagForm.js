@@ -13,12 +13,11 @@ const TagForm = () => {
         const stateToChange = tag;
         stateToChange[evt.target.id] = evt.target.value;
         setTag(stateToChange);
-        console.log(stateToChange)
     };
 
     const makeNewTag = () => {
         addTag(tag);
-        history.push("/tags");
+        history.push('/tags');
     };
 
 
