@@ -51,9 +51,13 @@ export default function UserProfile({ user }) {
           Details
         </Button>{" "}
         <Button color="warning">Edit</Button>{" "}
-        <Button color="danger" onClick={openAlert}>
+        {(user.isDeactivated === 0) ? <Button color="danger" onClick={openAlert}>
           Deactivate
-        </Button>{" "}
+        </Button> :
+        <Button color="primary" onClick={openAlert}>
+          Activate
+        </Button> }
+        {" "}
         {showAlertDialog && (
         <AlertDialog leastDestructiveRef={cancelRef} className="dialogborder">
           <AlertDialogLabel>Please Confirm!</AlertDialogLabel>
