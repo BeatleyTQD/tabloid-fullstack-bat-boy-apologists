@@ -31,6 +31,9 @@ const TagEditForm = () => {
 
     }
 
+    const Cancel = () => {
+        history.push("/tags")
+    }
 
     if (!tag) {
         return null;
@@ -46,6 +49,7 @@ const TagEditForm = () => {
                         </div>
                         <div className="form-group">
                             <Button color="primary" onClick={SaveTag}>Save Tag</Button>{" "}
+                            <Button color="secondary" onClick={Cancel}>Cancel</Button>{" "}
                         </div>
                     </div>
                 </div>

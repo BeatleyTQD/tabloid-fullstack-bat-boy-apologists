@@ -43,7 +43,7 @@ namespace Tabloid.Controllers
         }
 
         
-        [Authorize]
+        
         [HttpGet("details/{id}")]
         public IActionResult Get(int id)
         {
@@ -54,6 +54,30 @@ namespace Tabloid.Controllers
             }
             return Ok(user);
         }
+
+       
         
+        // POST Soft delete, moves User to a "Deactivated" group
+        [Authorize]
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int Id)
+        {
+            try
+            {
+                _userProfileRepository.DeleteUser(Id);
+                return NoContent();
+            }
+            catch
+            {
+                UserProfile user = _userProfileRepository.GetById(Id);
+                user.Error = true;
+                if (user != null)
+                {
+                    NotFound();
+                }
+                return Forbid();
+            }
+        }
+
     }
 }
