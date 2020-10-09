@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using System;
 using Tabloid.Models;
 using Tabloid.Repositories;
@@ -42,8 +43,15 @@ namespace Tabloid.Controllers
             return Ok(_userProfileRepository.GetAll());
         }
 
-        
-        
+        [Authorize]
+        [HttpGet("deactivated")]
+        public IActionResult GetDeactivatedUsers()
+        {
+            return Ok(_userProfileRepository.GetDeactivated());
+        }
+
+
+
         [HttpGet("details/{id}")]
         public IActionResult Get(int id)
         {
@@ -75,6 +83,20 @@ namespace Tabloid.Controllers
                 {
                     NotFound();
                 }
+                return Forbid();
+            }
+        }
+
+        [HttpPut("reactivate/{id}")]
+        public ActionResult Reactivate(int id)
+        {
+            try
+            {
+                _userProfileRepository.ReactivateUser(id);
+                return NoContent();
+            }
+            catch
+            {
                 return Forbid();
             }
         }
