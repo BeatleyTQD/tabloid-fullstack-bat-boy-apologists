@@ -26,8 +26,9 @@ const TagEditForm = () => {
             id: parseInt(id),
             name: tag.name
         };
-        updateTag(editedTag);
-        history.push("/tags");
+        updateTag(editedTag)
+            .then(() => history.push("/tags"));
+
     }
 
 

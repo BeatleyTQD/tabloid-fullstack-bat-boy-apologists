@@ -32,7 +32,7 @@ export const TagProvider = (props) => {
         .then((res) => res.json()));
 
   const addTag = (tag) => {
-    getToken().then((token) =>
+    return getToken().then((token) =>
       fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -44,7 +44,7 @@ export const TagProvider = (props) => {
   };
 
   const updateTag = (tag) => {
-    getToken().then((token) => {
+    return getToken().then((token) => {
       fetch(`${apiUrl}/${tag.id}`, {
         method: "PUT",
         headers: {
