@@ -44,7 +44,7 @@ export const TagProvider = (props) => {
   };
 
   const updateTag = (tag) => {
-    getToken().then((token) =>
+    getToken().then((token) => {
       fetch(`${apiUrl}/${tag.id}`, {
         method: "PUT",
         headers: {
@@ -52,7 +52,8 @@ export const TagProvider = (props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(tag),
-      }));
+      })
+    });
   }
 
   return (

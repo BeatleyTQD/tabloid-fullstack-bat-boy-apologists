@@ -4,36 +4,46 @@ import { useHistory, useParams } from 'react-router-dom';
 
 
 const TagEditForm = () => {
-    const [tag, setTag] = useState({ name: "" })
+    const [tag, setTag] = useState();
     const { updateTag, getTagById } = useContext(TagContext);
     const { id } = useParams();
 
+    useEffect(() => {
+        getTagById(id)
+            .then(setTag);
+    }, [])
+
     const handleFieldChange = evt => {
-        const stateToChange = tag;
+        const stateToChange = { ...tag };
         stateToChange[evt.target.id] = evt.target.value;
         setTag(stateToChange);
-        console.log(stateToChange)
     };
 
-    useEffect(() => {
-        getTagById(parseInt(id))
-            .then(tag => setTag(tag));
-    })
+    const SaveTag = () => {
+        const editedTag = {
+            id: parseInt(id),
+            name: tag.name
+        };
+        updateTag(editedTag);
+    }
 
 
+    if (!tag) {
+        return null;
+    }
     return (
         <>
             <div className="container pt-5">
                 <div className="card col-md12">
                     <h3 className="mt-3 text-primary text-center card-title">Edit a Tag</h3>
-                    <form className="mt-5 card-body">
+                    <div className="mt-5 card-body">
                         <div className="form-group">
                             <input className="form-control" id="name" value={tag.name} onChange={handleFieldChange} />
                         </div>
                         <div className="form-group">
-                            {/* <input type="submit" value="Save Tag" className="btn btn-primary btn-block" onClick={makeNewTag} /> */}
+                            <input type="button" value="Save Tag" className="btn btn-primary btn-block" onClick={SaveTag} />
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </>

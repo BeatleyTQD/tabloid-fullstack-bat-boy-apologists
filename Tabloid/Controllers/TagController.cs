@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tabloid.Models;
 using Tabloid.Repositories;
@@ -10,6 +11,7 @@ using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TagController : ControllerBase
@@ -33,9 +35,14 @@ namespace Tabloid.Controllers
 
         // GET api/<TagController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var tag = _tagRepository.GetTagById(id);
+            if (tag != null)
+            {
+                NotFound();
+            }
+            return Ok(tag);
         }
 
         // POST api/<TagController>
@@ -51,7 +58,7 @@ namespace Tabloid.Controllers
         public void Put(Tag tag)
         {
             _tagRepository.UpdateTag(tag);
-          
+
         }
 
         // DELETE api/<TagController>/5
