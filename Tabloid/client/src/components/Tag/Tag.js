@@ -9,6 +9,7 @@ export default function Tag({ tag }) {
   const Edit = () => {
     history.push(`tags/${tag.id}/edit`)
   }
+  
   return (
     <tr>
       <td>{tag.name}</td>
