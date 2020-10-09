@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { TagContext } from '../../providers/TagProvider';
 import { useHistory, useParams } from 'react-router-dom';
+import { Button } from 'reactstrap';
 
 
 const TagEditForm = () => {
     const [tag, setTag] = useState();
     const { updateTag, getTagById } = useContext(TagContext);
     const { id } = useParams();
+    const history = useHistory();
 
     useEffect(() => {
         getTagById(id)
@@ -25,6 +27,7 @@ const TagEditForm = () => {
             name: tag.name
         };
         updateTag(editedTag);
+        history.push("/tags");
     }
 
 
@@ -41,7 +44,7 @@ const TagEditForm = () => {
                             <input className="form-control" id="name" value={tag.name} onChange={handleFieldChange} />
                         </div>
                         <div className="form-group">
-                            <input type="button" value="Save Tag" className="btn btn-primary btn-block" onClick={SaveTag} />
+                            <Button color="primary" onClick={SaveTag}>Save Tag</Button>{" "}
                         </div>
                     </div>
                 </div>

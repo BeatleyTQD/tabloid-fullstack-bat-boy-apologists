@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { TagContext } from '../../providers/TagProvider';
 import { useHistory } from 'react-router-dom';
+import { Button } from 'reactstrap';
+
 
 const TagForm = () => {
     const [tag, setTag] = useState({ name: "" })
@@ -14,10 +16,11 @@ const TagForm = () => {
         console.log(stateToChange)
     };
 
-    //works half the time? Sporadically? Will never redirect to list, despite my best efforts and refactoring the code ten different ways.
     const makeNewTag = () => {
-        addTag(tag)
-    }
+        addTag(tag);
+        history.push("/tags");
+    };
+
 
     return (
         <>
@@ -29,7 +32,7 @@ const TagForm = () => {
                             <input className="form-control" id="name" onChange={handleFieldChange} />
                         </div>
                         <div className="form-group">
-                            <input type="submit" value="Save Tag" className="btn btn-primary btn-block" onClick={makeNewTag} />
+                            <Button color="primary" onClick={makeNewTag}>Save Tag</Button>{" "}
                         </div>
                     </div>
                 </div>
