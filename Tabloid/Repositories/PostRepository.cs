@@ -199,7 +199,7 @@ namespace Tabloid.Repositories
                     cmd.Parameters.AddWithValue("@CategoryId", post.CategoryId);
                     cmd.Parameters.AddWithValue("@UserProfileId", post.UserProfileId);
 
-                    post.Id = (int) cmd.ExecuteScalar();
+                    post.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }

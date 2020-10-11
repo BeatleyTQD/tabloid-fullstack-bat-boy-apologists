@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from 'reactstrap';
 import { Link } from "react-router-dom";
 
 const Post = ({ post }) => {
@@ -9,7 +8,13 @@ const Post = ({ post }) => {
 
     let userCheck;
     if (post.userProfileId === currentUserId) {
-        userCheck = <> <Link to={`/post/${post.id}`} className="btn btn-warning" title="Edit">Edit</Link> <Link to={`/post/${post.id}`} className="btn btn-danger" title="Delete">Delete</Link></>
+        userCheck =
+            <>
+                {' '}
+                <Link to={`/post/${post.id}/edit`} className="btn btn-warning" title="Edit">Edit</Link>
+                {' '}
+                <Link to={`/post/${post.id}`} className="btn btn-danger" title="Delete">Delete</Link>
+            </>
     }
 
     return (
@@ -32,14 +37,6 @@ const Post = ({ post }) => {
                 </Link>
 
                 {userCheck}
-
-                {/*
-                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary mx-1" title="Edit">
-                    <i class="fas fa-pencil-alt"></i>
-                </a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-primary mx-1" title="Delete">
-                    <i class="fas fa-trash"></i>
-                </a> */}
             </td>
         </tr>
     );
