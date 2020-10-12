@@ -6,10 +6,13 @@ import ApplicationViews from "./components/ApplicationViews";
 import { PostProvider } from './providers/PostProvider';
 import { TagProvider } from "./providers/TagProvider";
 import { CategoryProvider } from "./providers/CategoryProvider";
+import { UserTypeProvider } from "./providers/UserTypeProvider";
 function App() {
   return (
     <Router>
+      <UserTypeProvider>
       <UserProfileProvider>
+        
         <PostProvider>
           <CategoryProvider>
             <Header />
@@ -19,6 +22,7 @@ function App() {
           </CategoryProvider>
         </PostProvider>
       </UserProfileProvider>
+      </UserTypeProvider>
     </Router>
   );
 }

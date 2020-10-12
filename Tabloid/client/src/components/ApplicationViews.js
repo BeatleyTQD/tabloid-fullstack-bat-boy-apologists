@@ -3,17 +3,18 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
-import Post from "./post/Post";
+import Post from "../components/post/Post"
 import PostList from "./post/PostList";
 import Home from "./Home";
-import UserProfileList from "./UserProfileList";
-import UserProfileDetails from "./UserProfileDetails";
-import TagList from "./Tag/TagList";
-import TagForm from "./Tag/TagForm";
-import TagEditForm from "./Tag/TagEditForm";
+import UserProfileList from "../components/UserProfile/UserProfileList";
+import UserProfileDetails from "../components/UserProfile/UserProfileDetails";
+import UserProfileEdit from "../components/UserProfile/UserProfileEdit";
+import TagList from "../components/Tag/TagList";
+import TagForm from "../components/Tag/TagForm";
+import TagEditForm from "../components/Tag/TagEditForm";
 import CategoryList from "./Category/CategoryList";
-import PostDetail from "./post/PostDetail";
-import PostForm from "./post/PostForm";
+import PostDetail from "../components/post/PostDetail";
+import PostForm from "../components/post/PostForm";
 import PostEditForm from "./post/PostEditForm";
 import CategoryForm from "./Category/CategoryForm";
 
@@ -32,11 +33,11 @@ export default function ApplicationViews() {
         </Route>
 
         <Route path="/category/add">
-          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"Admin"') != -1 ? <CategoryForm /> : <Redirect to="/login" />}
+          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"Admin"') !== -1 ? <CategoryForm /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/category" exact>
-          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"Admin"') != -1 ? <CategoryList /> : <Redirect to="/login" />}
+          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"Admin"') !== -1 ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
 
 
@@ -79,6 +80,10 @@ export default function ApplicationViews() {
 
         <Route path="/userprofiles/:id" exact>
           <UserProfileDetails />
+        </Route>
+
+        <Route path="/userprofiles/edit/:id" exact>
+          <UserProfileEdit />
         </Route>
 
         <Route path="/login">

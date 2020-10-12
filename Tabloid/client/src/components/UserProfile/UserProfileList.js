@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Button } from "reactstrap";
 import UserProfile from "./UserProfile";
-import { UserProfileContext } from "../providers/UserProfileProvider";
+import { UserProfileContext } from "../../providers/UserProfileProvider";
 
 export default function UserProfileList() {
   const { users, getAllUsers,getDeactivatedUsers } = useContext(UserProfileContext);
