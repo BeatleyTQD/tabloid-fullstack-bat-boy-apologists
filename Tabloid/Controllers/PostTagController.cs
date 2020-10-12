@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Tabloid.Models;
 using Tabloid.Repositories;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -31,9 +32,14 @@ namespace Tabloid.Controllers
 
         // GET api/<PostTagController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            List<Tag> tags = _tagRepository.GetPostTags(id);
+            if (tags == null)
+            {
+                return NotFound();
+            }
+            return Ok(tags);
         }
 
         // POST api/<PostTagController>
