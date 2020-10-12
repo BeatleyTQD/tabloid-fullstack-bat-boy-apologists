@@ -61,14 +61,32 @@ namespace Tabloid.Repositories
         }
 
 
-    //    Update Post SET CategoryId =
-    //(SELECT c.id FROM Category c
 
-    //    WHERE c.Name = 'Other') WHERE post.CategoryId = 2;
+        public void DeleteCategory(int categoryId)
+        {
+
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @" Update Post SET CategoryId =
+    (SELECT c.id FROM Category c
+            WHERE c.Name = 'Other') WHERE post.CategoryId = @id;
+        DELETE Category WHERE id = @id;";
+                    cmd.Parameters.AddWithValue("@id", categoryId);
 
 
+                    cmd.ExecuteNonQuery();
 
-    // DELETE Category WHERE id = 2;
+                }
+
+            }
+
+        }
+
+
+  
 
 
     }

@@ -23,14 +23,14 @@ namespace Tabloid.Controllers
         }
 
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public IActionResult Get()
         {
             return Ok(_categoryRepository.GetAll());
         }
 
-
+        [Authorize]
         [HttpPost]
         public IActionResult Post(Category category)
         {
@@ -40,11 +40,12 @@ namespace Tabloid.Controllers
 
         }
 
-
+        [Authorize]
         [HttpDelete("{id}")]
-        public void Delete(int id)
-        { 
-
+        public IActionResult Delete(int id)
+        {
+            _categoryRepository.DeleteCategory(id);
+            return NoContent();
         }
     }
 }
