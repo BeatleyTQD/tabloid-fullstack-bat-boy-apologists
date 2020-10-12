@@ -17,9 +17,12 @@ const newCategory = evt => {
     if(category.Name == ""){
         window.alert("Must input a name");
     }
+    else if (category.Name.toUpperCase() == "OTHER")
+    {
+        window.alert("Other can not be a category")
+    }
     else {
     setIsLoading(true);
-
         addCategory(category).then(() => {
             window.location.href = "/category"
         });

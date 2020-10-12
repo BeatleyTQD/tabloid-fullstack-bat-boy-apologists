@@ -1,15 +1,15 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { Button } from "reactstrap";
 
 
-const Category = ({ category }) => {
+const Category = (props) => {
   
 return (
     <tr>
-        <td>{category.name}</td>
+        <td>{props.category.name}</td>
         <td>
         <Button color="warning">Edit</Button>{" "}
-        <Button color="danger">Delete</Button>{" "}
+        {props.category.name.toLowerCase() !== "other" ? <Button onClick={() => {props.delete(props.category.id)}} color="danger">Delete</Button> : null}
       </td>
     </tr>
 )
