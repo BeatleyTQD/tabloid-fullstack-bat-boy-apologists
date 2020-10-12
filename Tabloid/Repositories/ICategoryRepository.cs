@@ -9,9 +9,8 @@ namespace Tabloid.Repositories
 
         public void CreateCategory(Category category);
 
-        //void AddCategory(Category category);
-        //void UpdateCategory(Category category);
-        //void DeleteCategory(int categoryId);
-        //Category GetCategoryById(int categoryId);
+        public void DeleteCategory(int categoryId);
+
+      
     }
 }
