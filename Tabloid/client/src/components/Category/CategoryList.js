@@ -6,10 +6,24 @@ import {Link} from "react-router-dom";
 
 const CategoryList = () => {
     const {category, getAllCategories} = useContext(CategoryContext);
+    const {deleteCategory} = useContext(CategoryContext);
 
     useEffect(() => {
         getAllCategories();
     }, []);
+
+const deleteCategoryFromList = (id) => {
+
+  if(window.confirm("Are you sure?"))
+  {
+    deleteCategory(id).then(() => {
+      getAllCategories();
+    });
+  }
+ 
+  
+}
+
 
     return (
         <div className="container">
@@ -28,7 +42,7 @@ const CategoryList = () => {
           </thead>
           <tbody>
             {category.map((element) => (
-              <Category key={element.id} category={element} />
+              <Category key={element.id} category={element} delete={deleteCategoryFromList}/>
             ))}
           </tbody>
         </table>
