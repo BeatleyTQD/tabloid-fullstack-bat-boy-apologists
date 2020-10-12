@@ -1,12 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import { CategoryContext } from "../../providers/CategoryProvider";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 const PostForm = () => {
-    const { addPost } = useContext(PostContext);
+    const { updatePost, getPost } = useContext(PostContext);
     const [post, setPost] = useState({ title: "", isApproved: true, content: "", imageLocation: undefined, createDateTime: "", publishDateTime: "", categoryId: 0, userProfileId: 0 })
     const { category, getAllCategories } = useContext(CategoryContext);
+    const { id } = useParams();
     const [isLoading, setIsLoading] = useState(false);
 
     // Use this hook to allow us to programatically redirect users
@@ -17,22 +18,24 @@ const PostForm = () => {
         getAllCategories();
     }, []);
 
+    useEffect(() => {
+        getPost(id)
+            .then(setPost);
+    }, []);
+
     const handleFieldChange = evt => {
         const stateToChange = { ...post }
         stateToChange[evt.target.id] = evt.target.value
         setPost(stateToChange)
-    }
+    };
 
     const submit = (e) => {
         setIsLoading(true)
-        post.createDateTime = new Date();
-        post.userProfileId = currentUser.id;
         post.categoryId = parseInt(post.categoryId);
-        addPost(post).then((p) => {
-            history.push(`/post/${p.id}`);
+        updatePost(post).then((p) => {
+            history.push(`/post/${post.id}`);
         });
     };
-
 
     return (
         <div className="container">
@@ -56,7 +59,7 @@ const PostForm = () => {
                                 id="imageLocation"
                                 className="form-control"
                                 onChange={handleFieldChange}
-                                value={post.imageLocation}
+                                value={post.imageLocation ?? undefined}
                             />
                         </div>
                         <div className="form-group">
@@ -65,7 +68,7 @@ const PostForm = () => {
                                 id="publishDateTime"
                                 className="form-control"
                                 onChange={handleFieldChange}
-                                value={post.publishDateTime}
+                                value={post.publishDateTime.split('T')[0]}
                                 type="date"
                             />
                         </div>

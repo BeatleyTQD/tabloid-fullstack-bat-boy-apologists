@@ -6,6 +6,7 @@ export const PostContext = createContext();
 export const PostProvider = (props) => {
     const [posts, setPosts] = useState([]);
     const { getToken } = useContext(UserProfileContext);
+
     const apiUrl = "/api/post";
 
     const getAllPosts = () => {
@@ -41,8 +42,21 @@ export const PostProvider = (props) => {
             }).then(resp => resp.json()));
     };
 
+    const updatePost = (post) => {
+        return getToken().then((token) =>
+            fetch(`${apiUrl}/${post.id}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(post),
+            })
+        );
+    }
+
     return (
-        <PostContext.Provider value={{ posts, getAllPosts, addPost, getPost }}>
+        <PostContext.Provider value={{ posts, getAllPosts, addPost, getPost, updatePost }}>
             {props.children}
         </PostContext.Provider>
     );

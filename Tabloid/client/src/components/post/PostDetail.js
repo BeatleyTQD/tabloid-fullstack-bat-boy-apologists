@@ -25,7 +25,7 @@ const PostDetail = () => {
             </div>
         </section>
     }
-    console.log(post)
+
     return (
         <div className="container">
             <div className="post">
