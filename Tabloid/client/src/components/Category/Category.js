@@ -9,7 +9,7 @@ return (
         <td>{props.category.name}</td>
         <td>
         <Button color="warning">Edit</Button>{" "}
-        <Button onClick={() => {props.delete(props.category.id)}} color="danger">Delete</Button>{" "}
+        {props.category.name.toLowerCase() !== "other" ? <Button onClick={() => {props.delete(props.category.id)}} color="danger">Delete</Button> : null}
       </td>
     </tr>
 )
