@@ -17,6 +17,7 @@ import PostDetail from "../components/post/PostDetail";
 import PostForm from "../components/post/PostForm";
 import PostEditForm from "./post/PostEditForm";
 import CategoryForm from "./Category/CategoryForm";
+import MyPosts from "./post/MyPosts";
 
 
 
@@ -44,6 +45,10 @@ export default function ApplicationViews() {
         {/* ///////////POSTS//////////// */}
         <Route path="/post" exact>
           {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/post/myposts" exact>
+          {isLoggedIn ? <MyPosts /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/post/add" exact>
