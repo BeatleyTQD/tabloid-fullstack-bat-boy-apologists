@@ -114,3 +114,7 @@ header.masthead {
 .hidden {
   display: none;
 }
+
+.div__tags {
+  padding: 1em 1em 1em 0;
+}

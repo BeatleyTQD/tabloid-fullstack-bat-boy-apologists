@@ -73,10 +73,10 @@ const PostDetail = () => {
                         <p className="text-black-50">Published on {new Intl.DateTimeFormat('en-US').format(new Date(post.publishDateTime))}</p>
                     </div>
 
-                    {/* <div className="row justify-content-sm-start" style="padding-bottom:1em;">
-                            <span style="padding-right:2em;"><a className="btn btn-outline-dark btn-sm mx-1" asp-route-id="@Model.Post.Id" asp-area="" asp-controller="PostTag" asp-action="Edit">Manage Tags</a></span>
-                            @foreach(Tag tag in Model.Tags) { <span style="font-size:1em;padding-right:1em">@tag.Name</span> }
-                        </div> */}
+                    <div className="row justify-content-sm-start div__tags" >
+                            <Button >Manage Tags</Button>
+                             {/* {} <span style="font-size:1em;padding-right:1em">@tag.Name</span>  */}
+                        </div>
 
                     {userCheck}
 
