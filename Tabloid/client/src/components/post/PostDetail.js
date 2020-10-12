@@ -1,13 +1,18 @@
 import React, { useEffect, useContext, useState } from "react";
-import { ListGroup, ListGroupItem } from "reactstrap";
 import { PostContext } from "../../providers/PostProvider";
-import { useParams } from "react-router-dom";
-import Post from "./Post";
+import { Button, Modal, ModalHeader, ModalFooter } from "reactstrap";
+import { useHistory, useParams, Link } from 'react-router-dom';
 
 const PostDetail = () => {
     const [post, setPost] = useState();
-    const { getPost } = useContext(PostContext);
+    const { getPost, deletePost } = useContext(PostContext);
     const { id } = useParams();
+    const [modal, setModal] = useState(false);
+    const toggle = () => setModal(!modal);
+
+    const history = useHistory();
+    const currentUser = JSON.parse(sessionStorage.userProfile)
+    const currentUserId = currentUser.id
 
     useEffect(() => {
         getPost(id).then(setPost);
@@ -17,6 +22,14 @@ const PostDetail = () => {
         return null;
     }
 
+    const Delete = () => {
+        deletePost(post.id)
+            .then(toggle)
+            .then(() => {
+                history.push("/post");
+            })
+    }
+
     let imageTest = null;
     if (post.imageLocation) {
         imageTest = <section className="row justify-content-center">
@@ -24,6 +37,23 @@ const PostDetail = () => {
                 <img src={post.imageLocation} />
             </div>
         </section>
+    }
+
+    let userCheck;
+    if (post.userProfileId === currentUserId) {
+        userCheck =
+            <div className="row">
+                <Link to={`/post/${post.id}/edit`} className="btn btn-warning" title="Edit">Edit</Link>
+                &nbsp;
+                <Button color="danger" onClick={toggle}>Delete</Button>
+                <Modal isOpen={modal} toggle={toggle}>
+                    <ModalHeader toggle={toggle}>Are you sure you want to delete this post?</ModalHeader>
+                    <ModalFooter>
+                        <Button color="danger" onClick={Delete}>Delete</Button>
+                        <Button color="secondary" onClick={toggle}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
+            </div>
     }
 
     return (
@@ -48,18 +78,7 @@ const PostDetail = () => {
                             @foreach(Tag tag in Model.Tags) { <span style="font-size:1em;padding-right:1em">@tag.Name</span> }
                         </div> */}
 
-                    {/* <div className="row">
-                            <a asp-action="Edit" asp-route-id="@Model.Post.Id" className="btn btn-outline-primary mx-1" title="Edit">
-                                <i className="fas fa-pencil-alt"></i>
-                            </a>
-                            <a asp-action="Delete" asp-route-id="@Model.Post.Id" className="btn btn-outline-primary mx-1" title="Delete">
-                                <i className="fas fa-trash"></i>
-                            </a>
-
-                            <a className="btn btn-outline-primary mx-1" asp-route-id="@Model.Post.Id" asp-area="" asp-controller="Comment" asp-action="Details">View Comments</a>
-                            <a className="btn btn-outline-primary mx-1" asp-route-id="@Model.Post.Id" asp-area="" asp-controller="Comment" asp-action="Create">Add Comment</a>
-
-                        </div> */}
+                    {userCheck}
 
                     {imageTest}
 

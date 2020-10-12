@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import {
   AlertDialog,
   AlertDialogLabel,
@@ -7,10 +8,9 @@ import {
 } from "@reach/alert-dialog";
 import { Dialog } from "@reach/dialog";
 import VisuallyHidden from "@reach/visually-hidden";
-import "@reach/dialog/styles.css";
 import { Button } from "reactstrap";
-import { useHistory } from "react-router-dom";
-import { UserProfileContext } from "../providers/UserProfileProvider";
+import { UserProfileContext } from "../../providers/UserProfileProvider";
+
 
 export default function UserProfile({ user }) {
   const { deactivateUserProfile,getAllUsers, getDeactivatedUsers,reactivateUserProfile }  = useContext(UserProfileContext);
@@ -36,6 +36,9 @@ export default function UserProfile({ user }) {
     history.push(`userprofiles/${user.id}`);
   };
 
+  const editUser = () => {
+    history.push(`/userprofiles/edit/${user.id}`)
+  }
   
   const deleteUser = () => {
     deactivateUserProfile(user.id).then((u) => {
@@ -57,7 +60,7 @@ export default function UserProfile({ user }) {
         <Button color="info" onClick={Details}>
           Details
         </Button>{" "}
-        <Button color="warning">Edit</Button>{" "}
+        <Button color="warning" onClick={editUser}>Edit</Button>{" "}
         {(user.isDeactivated === 0) ? <Button color="danger" onClick={openAlert}>
           Deactivate
         </Button> :

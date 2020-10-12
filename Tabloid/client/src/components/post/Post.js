@@ -1,19 +1,38 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { PostContext } from "../../providers/PostProvider";
+import { Button, Modal, ModalHeader, ModalFooter } from "reactstrap";
+import { useParams } from 'react-router-dom';
 
 const Post = ({ post }) => {
+    const { deletePost, getAllPosts } = useContext(PostContext);
+    const [modal, setModal] = useState(false);
+    const toggle = () => setModal(!modal);
 
     const currentUser = JSON.parse(sessionStorage.userProfile)
     const currentUserId = currentUser.id
+
+    const Delete = () => {
+        deletePost(post.id)
+            .then(toggle)
+            .then(getAllPosts)
+    }
 
     let userCheck;
     if (post.userProfileId === currentUserId) {
         userCheck =
             <>
-                {' '}
+                &nbsp;
                 <Link to={`/post/${post.id}/edit`} className="btn btn-warning" title="Edit">Edit</Link>
-                {' '}
-                <Link to={`/post/${post.id}`} className="btn btn-danger" title="Delete">Delete</Link>
+                &nbsp;
+                <Button color="danger" onClick={toggle} >Delete</Button>
+                <Modal isOpen={modal} toggle={toggle}>
+                    <ModalHeader toggle={toggle}>Are you sure you want to delete this post?</ModalHeader>
+                    <ModalFooter>
+                        <Button color="danger" onClick={Delete}>Delete</Button>
+                        <Button color="secondary" onClick={toggle}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
             </>
     }
 

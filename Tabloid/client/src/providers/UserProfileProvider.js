@@ -66,18 +66,27 @@ export function UserProfileProvider(props) {
     );
   };
 
+
+
   const saveUser = (userProfile) => {
     return getToken().then((token) =>
-      fetch(apiUrl, {
-        method: "POST",
+      fetch(`${apiUrl}/edittype`, {
+        method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(userProfile),
-      }).then((resp) => resp.json())
-    );
-  };
+      }).then(function (response) {
+        if (!response.ok) {
+            return false;
+        }
+    
+        return response.ok;
+    
+    })
+      );
+    };
 
   const deactivateUserProfile = (id) => {
     return getToken().then((token) =>
@@ -165,7 +174,8 @@ export function UserProfileProvider(props) {
         getAllUsers,
         getUserById,
         getDeactivatedUsers,
-        reactivateUserProfile
+        reactivateUserProfile,
+        saveUser
       }}
     >
       {isFirebaseReady ? (

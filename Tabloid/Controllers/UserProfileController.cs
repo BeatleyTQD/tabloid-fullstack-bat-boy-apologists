@@ -12,9 +12,12 @@ namespace Tabloid.Controllers
     public class UserProfileController : ControllerBase
     {
         private readonly IUserProfileRepository _userProfileRepository;
-        public UserProfileController(IUserProfileRepository userProfileRepository)
+        private readonly IUserTypeRepository _userTypeRepository;
+
+        public UserProfileController(IUserProfileRepository userProfileRepository, IUserTypeRepository userTypeRepository)
         {
             _userProfileRepository = userProfileRepository;
+            _userTypeRepository = userTypeRepository;
         }
 
 
@@ -43,6 +46,7 @@ namespace Tabloid.Controllers
             return Ok(_userProfileRepository.GetAll());
         }
 
+   
         [Authorize]
         [HttpGet("deactivated")]
         public IActionResult GetDeactivatedUsers()
@@ -97,6 +101,26 @@ namespace Tabloid.Controllers
             }
             catch
             {
+                return Forbid();
+            }
+        }
+
+        [HttpPut("edittype")]
+        public ActionResult Edit(UserProfile user)
+        {
+            try
+            {
+                _userProfileRepository.UpdateUser(user);
+                return NoContent();
+            }
+            catch
+            {
+                user = _userProfileRepository.GetById(user.Id);
+                user.Error = true;
+                if (user != null)
+                {
+                    NotFound();
+                }
                 return Forbid();
             }
         }
