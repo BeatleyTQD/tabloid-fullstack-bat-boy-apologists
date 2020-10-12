@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { UserProfileContext } from "../providers/UserProfileProvider";
-import UserProfileList from "./UserProfileList";
+import { UserProfileContext } from "../../providers/UserProfileProvider";
+import UserProfileList from "./UserProfileList"
 
 export default function UserProfileDetails() {
   const { getUserById } = useContext(UserProfileContext);
