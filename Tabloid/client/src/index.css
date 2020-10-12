@@ -118,3 +118,8 @@ header.masthead {
 .div__tags {
   padding: 1em 1em 1em 0;
 }
+
+.span__posttag {
+  font-size: 1em;
+  padding-right: 1em;
+}

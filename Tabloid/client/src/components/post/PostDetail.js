@@ -1,11 +1,15 @@
 import React, { useEffect, useContext, useState } from "react";
 import { PostContext } from "../../providers/PostProvider";
+import { PostTagContext } from "../../providers/PostTagProvider";
 import { Button, Modal, ModalHeader, ModalFooter } from "reactstrap";
 import { useHistory, useParams, Link } from 'react-router-dom';
 
 const PostDetail = () => {
     const [post, setPost] = useState();
+    const [postTags, setPostTags] = useState();
+    const [isLoading, setIsLoading ] = useState("true");
     const { getPost, deletePost } = useContext(PostContext);
+    const { getTagsByPostId } = useContext(PostTagContext);
     const { id } = useParams();
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
@@ -14,8 +18,15 @@ const PostDetail = () => {
     const currentUser = JSON.parse(sessionStorage.userProfile)
     const currentUserId = currentUser.id
 
+   
+
     useEffect(() => {
-        getPost(id).then(setPost);
+        getPost(id)
+        .then(setPost);
+        getTagsByPostId(id)
+        .then(setPostTags);
+        setIsLoading(false);
+        
     }, []);
 
     if (!post) {
@@ -57,6 +68,8 @@ const PostDetail = () => {
     }
 
     return (
+        (!isLoading) ?
+        (
         <div className="container">
             <div className="post">
                 <section className="px-3">
@@ -75,7 +88,8 @@ const PostDetail = () => {
 
                     <div className="row justify-content-sm-start div__tags" >
                             <Button >Manage Tags</Button>
-                             {/* {} <span style="font-size:1em;padding-right:1em">@tag.Name</span>  */}
+                              { postTags.map((postTag) => <span className="span__posttag">postTag.name</span> ) }
+                             
                         </div>
 
                     {userCheck}
@@ -88,7 +102,9 @@ const PostDetail = () => {
                 </section>
             </div>
         </div>
+        ) : null
     );
+    
 };
 
 export default PostDetail;
