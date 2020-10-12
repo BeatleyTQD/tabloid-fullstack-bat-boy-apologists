@@ -17,11 +17,13 @@ namespace Tabloid.Controllers
     {
         private readonly IPostRepository _postRepository;
         private readonly IUserProfileRepository _userProfileRepository;
+        private readonly ITagRepository _tagRepository;
 
-        public PostController(IPostRepository postRepository, IUserProfileRepository userProfileRepository)
+        public PostController(IPostRepository postRepository, IUserProfileRepository userProfileRepository, ITagRepository tagRepository)
         {
             _postRepository = postRepository;
             _userProfileRepository = userProfileRepository;
+             _tagRepository = tagRepository;
         }
         
         private UserProfile GetCurrentUserProfile()
@@ -47,6 +49,7 @@ namespace Tabloid.Controllers
                 return NotFound();
             }
             return Ok(post);
+
         }
 
         [Authorize]
