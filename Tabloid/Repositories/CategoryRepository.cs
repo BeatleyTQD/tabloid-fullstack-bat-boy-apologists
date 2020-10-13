@@ -48,7 +48,7 @@ namespace Tabloid.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT id, name FROM Category ORDER BY name WHERE id = @id";
+                    cmd.CommandText = "SELECT id, name FROM Category WHERE id = @id";
 
                     cmd.Parameters.AddWithValue("@id", categoryId);
 

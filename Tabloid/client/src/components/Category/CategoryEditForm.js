@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CategoryContext } from '../../providers/CategoryProvider';
 import { useHistory, useParams } from 'react-router-dom';
-import { Button } from 'reactstrap';
 
 
 const CategoryEditForm = () => {
@@ -18,7 +17,7 @@ const CategoryEditForm = () => {
     const handleFieldChange = evt => {
         const stateToChange = { ...category };
         stateToChange[evt.target.id] = evt.target.value;
-        setTag(stateToChange);
+        setCategory(stateToChange);
     };
 
     const SaveCategory = () => {
@@ -45,10 +44,11 @@ const CategoryEditForm = () => {
                     <h3 className="mt-3 text-primary text-center card-title">Add a Category</h3>
                     <form className="mt-5 card-body">
                         <div className="form-group">
-                            <input className="form-control" id="Name" onChange={handleFieldChange} />
+                            <input className="form-control" id="name" value={category.name} onChange={handleFieldChange} />
                         </div>
                         <div className="form-group">
-                            <input type="button" value="Add" className="btn btn-primary btn-block" onClick={newCategory} />
+                            <input type="button" value="Add" className="btn btn-primary btn-block" onClick={SaveCategory} />
+                            <input type="button" value="Cancel" className="btn btn-primary btn-block" onClick={Cancel} />
                         </div>
                     </form>
                 </div>
@@ -56,3 +56,5 @@ const CategoryEditForm = () => {
         </>
     )
 }
+
+export default CategoryEditForm
