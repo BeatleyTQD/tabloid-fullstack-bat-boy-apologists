@@ -84,5 +84,14 @@ namespace Tabloid.Controllers
             _postRepository.DeletePost(id);
             return NoContent();
         }
+
+        [Authorize]
+        [HttpGet("myposts")]
+        public IActionResult MyPosts()
+        {
+            UserProfile user = GetCurrentUserProfile();
+            int userId = user.Id;
+            return Ok(_postRepository.GetAllUserPosts(userId));
+        }
     }
 }
