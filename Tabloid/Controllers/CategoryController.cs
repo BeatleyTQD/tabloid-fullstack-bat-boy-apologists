@@ -31,6 +31,18 @@ namespace Tabloid.Controllers
         }
 
         [Authorize]
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var category = _categoryRepository.GetById(id);
+            if (category != null)
+            {
+                NotFound();
+            }
+            return Ok(category);
+        }
+
+        [Authorize]
         [HttpPost]
         public IActionResult Post(Category category)
         {
@@ -38,6 +50,13 @@ namespace Tabloid.Controllers
 
             return CreatedAtAction("Get", new { id = category.Id }, category);
 
+        }
+
+        [Authorize]
+        [HttpPut("{id}")]
+        public void Put(Category category)
+        {
+            _categoryRepository.UpdateCategory(category);
         }
 
         [Authorize]

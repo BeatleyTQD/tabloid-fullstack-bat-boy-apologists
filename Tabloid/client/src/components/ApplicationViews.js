@@ -17,6 +17,7 @@ import PostDetail from "../components/post/PostDetail";
 import PostForm from "../components/post/PostForm";
 import PostEditForm from "./post/PostEditForm";
 import CategoryForm from "./Category/CategoryForm";
+import CategoryEditForm from './Category/CategoryEditForm';
 import MyPosts from "./post/MyPosts";
 
 
@@ -39,6 +40,10 @@ export default function ApplicationViews() {
 
         <Route path="/category" exact>
           {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"Admin"') !== -1 ? <CategoryList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/category/:id/edit" exact>
+          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"Admin"') !== -1 ? <CategoryEditForm /> : <Redirect to="/login" />}
         </Route>
 
 
