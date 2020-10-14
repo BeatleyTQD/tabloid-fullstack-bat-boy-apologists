@@ -1,11 +1,16 @@
 import React, { useEffect, useContext, useState } from "react";
 import { PostContext } from "../../providers/PostProvider";
+import { PostTagContext } from "../../providers/PostTagProvider";
+import PostTagEdit from "../Tag/PostTagEdit";
 import { Button, Modal, ModalHeader, ModalFooter } from "reactstrap";
 import { useHistory, useParams, Link } from 'react-router-dom';
 
+
 const PostDetail = () => {
     const [post, setPost] = useState();
+    const [isLoading, setIsLoading ] = useState("true");
     const { getPost, deletePost } = useContext(PostContext);
+    const { getTagsByPostId,postTags } = useContext(PostTagContext);
     const { id } = useParams();
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
@@ -14,12 +19,22 @@ const PostDetail = () => {
     const currentUser = JSON.parse(sessionStorage.userProfile)
     const currentUserId = currentUser.id
 
+   
+
     useEffect(() => {
-        getPost(id).then(setPost);
+        getPost(id)
+        .then(setPost)
+        getTagsByPostId(id)
+        setIsLoading(false);
+        
     }, []);
 
     if (!post) {
         return null;
+    }
+
+    const ManageTags = () => {
+        history.push(`/posttag/${post.id}`)
     }
 
     const Delete = () => {
@@ -57,6 +72,8 @@ const PostDetail = () => {
     }
 
     return (
+        (!isLoading) ?
+        (
         <div className="container">
             <div className="post">
                 <section className="px-3">
@@ -73,10 +90,12 @@ const PostDetail = () => {
                         <p className="text-black-50">Published on {new Intl.DateTimeFormat('en-US').format(new Date(post.publishDateTime))}</p>
                     </div>
 
-                    {/* <div className="row justify-content-sm-start" style="padding-bottom:1em;">
-                            <span style="padding-right:2em;"><a className="btn btn-outline-dark btn-sm mx-1" asp-route-id="@Model.Post.Id" asp-area="" asp-controller="PostTag" asp-action="Edit">Manage Tags</a></span>
-                            @foreach(Tag tag in Model.Tags) { <span style="font-size:1em;padding-right:1em">@tag.Name</span> }
-                        </div> */}
+                    <div className="row justify-content-sm-start div__tags" >
+                            <Button onClick={ManageTags} >Manage Tags</Button>
+                           
+                               {(postTags !== null || postTags !== undefined) && postTags.map((postTag) => <span key={postTag.id} className="span__posttag">{postTag.name}</span> ) }
+                             
+                        </div>
 
                     {userCheck}
 
@@ -88,7 +107,9 @@ const PostDetail = () => {
                 </section>
             </div>
         </div>
+        ) : null
     );
+    
 };
 
 export default PostDetail;
