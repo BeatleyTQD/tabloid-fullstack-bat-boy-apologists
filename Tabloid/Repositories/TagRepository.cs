@@ -111,6 +111,25 @@ namespace Tabloid.Repositories
             }
         }
 
+        public void DeleteAllTagsByPostId(int postId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                     DELETE FROM PostTag Where PostId = @postId;
+                        ";
+                    cmd.Parameters.AddWithValue("@postId", postId);
+                    
+
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public void DeleteTag(int tagId)
         {
             using (var conn = Connection)

@@ -116,7 +116,16 @@ header.masthead {
 }
 
 .div__tags {
+  display: flex;
+  flex-flow: row nowrap;
+
   padding: 1em 1em 1em 0;
+}
+
+.div__tags__list {
+  display: flex;
+  width: 33%;
+  flex-flow: column;
 }
 
 .span__posttag {

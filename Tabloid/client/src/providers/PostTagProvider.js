@@ -35,7 +35,7 @@ export const PostTagProvider = (props) => {
   };
 
   
-  const deletePostTag = (id) => {
+  const deleteTagsByPostId = (id) => {
     return getToken().then((token) => {
       fetch(`${apiUrl}/${id}`, {
         method: "DELETE",
@@ -48,7 +48,7 @@ export const PostTagProvider = (props) => {
   };
 
   return (
-    <PostTagContext.Provider value={{ postTags, getTagsByPostId, addPostTag, deletePostTag }}>
+    <PostTagContext.Provider value={{ postTags, getTagsByPostId, addPostTag, deleteTagsByPostId }}>
       {props.children}
     </PostTagContext.Provider>
   );

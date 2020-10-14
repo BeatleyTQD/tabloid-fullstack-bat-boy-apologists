@@ -1,15 +1,16 @@
 import React, { useEffect, useContext, useState } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import { PostTagContext } from "../../providers/PostTagProvider";
+import PostTagEdit from "../Tag/PostTagEdit";
 import { Button, Modal, ModalHeader, ModalFooter } from "reactstrap";
 import { useHistory, useParams, Link } from 'react-router-dom';
 
+
 const PostDetail = () => {
     const [post, setPost] = useState();
-    const [postTags, setPostTags] = useState();
     const [isLoading, setIsLoading ] = useState("true");
     const { getPost, deletePost } = useContext(PostContext);
-    const { getTagsByPostId } = useContext(PostTagContext);
+    const { getTagsByPostId,postTags } = useContext(PostTagContext);
     const { id } = useParams();
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
@@ -22,15 +23,18 @@ const PostDetail = () => {
 
     useEffect(() => {
         getPost(id)
-        .then(setPost);
+        .then(setPost)
         getTagsByPostId(id)
-        .then(setPostTags);
         setIsLoading(false);
         
     }, []);
 
     if (!post) {
         return null;
+    }
+
+    const ManageTags = () => {
+        history.push(`/posttag/${post.id}`)
     }
 
     const Delete = () => {
@@ -87,8 +91,9 @@ const PostDetail = () => {
                     </div>
 
                     <div className="row justify-content-sm-start div__tags" >
-                            <Button >Manage Tags</Button>
-                              { postTags.map((postTag) => <span className="span__posttag">postTag.name</span> ) }
+                            <Button onClick={ManageTags} >Manage Tags</Button>
+                           
+                               {(postTags !== null || postTags !== undefined) && postTags.map((postTag) => <span key={postTag.id} className="span__posttag">{postTag.name}</span> ) }
                              
                         </div>
 

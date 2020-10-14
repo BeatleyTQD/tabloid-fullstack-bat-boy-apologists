@@ -13,5 +13,6 @@ namespace Tabloid.Repositories
         List<Tag> GetPostTags(int postId);
         Tag GetTagById(int tagId);
         void UpdateTag(Tag tag);
+        void DeleteAllTagsByPostId(int postId);
     }
 }

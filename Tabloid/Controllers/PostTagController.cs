@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tabloid.Models;
 using Tabloid.Repositories;
@@ -42,10 +43,12 @@ namespace Tabloid.Controllers
             return Ok(tags);
         }
 
-        // POST api/<PostTagController>
+        [Authorize]
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post(PostTag postTag)
         {
+            _tagRepository.AddPostTag(postTag);
+            return CreatedAtAction("Get", new { id = postTag.Id }, postTag);
         }
 
         // PUT api/<PostTagController>/5
@@ -58,6 +61,7 @@ namespace Tabloid.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _tagRepository.DeleteAllTagsByPostId(id);
         }
     }
 }
