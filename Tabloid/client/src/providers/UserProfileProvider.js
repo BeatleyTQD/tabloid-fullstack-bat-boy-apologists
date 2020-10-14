@@ -45,7 +45,7 @@ export function UserProfileProvider(props) {
       .auth()
       .createUserWithEmailAndPassword(userProfile.email, password)
       .then((createResponse) =>
-        saveUser({ ...userProfile, firebaseUserId: createResponse.user.uid })
+        saveRegisterUser({ ...userProfile, firebaseUserId: createResponse.user.uid })
       )
       .then((savedUserProfile) => {
         sessionStorage.setItem("userProfile", JSON.stringify(savedUserProfile));
@@ -66,7 +66,17 @@ export function UserProfileProvider(props) {
     );
   };
 
-
+  const saveRegisterUser = (userProfile) => {
+    return getToken().then((token) =>
+      fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userProfile)
+      }).then(resp => resp.json()));
+  };
 
   const saveUser = (userProfile) => {
     return getToken().then((token) =>
@@ -79,14 +89,14 @@ export function UserProfileProvider(props) {
         body: JSON.stringify(userProfile),
       }).then(function (response) {
         if (!response.ok) {
-            return false;
+          return false;
         }
-    
+
         return response.ok;
-    
-    })
-      );
-    };
+
+      })
+    );
+  };
 
   const deactivateUserProfile = (id) => {
     return getToken().then((token) =>
@@ -98,33 +108,33 @@ export function UserProfileProvider(props) {
         }
       }).then(function (response) {
         if (!response.ok) {
-            return false;
+          return false;
         }
-    
-        return response.ok;
-    
-    })
-      );
-    };
 
-    const reactivateUserProfile = (id) => {
-      return getToken().then((token) =>
-        fetch(`${apiUrl}/reactivate/${id}`, {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          }
-        }).then(function (response) {
-          if (!response.ok) {
-              return false;
-          }
-      
-          return response.ok;
-      
+        return response.ok;
+
       })
-        );
-      };
+    );
+  };
+
+  const reactivateUserProfile = (id) => {
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/reactivate/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        }
+      }).then(function (response) {
+        if (!response.ok) {
+          return false;
+        }
+
+        return response.ok;
+
+      })
+    );
+  };
 
   const getAllUsers = () =>
     getToken().then((token) =>
@@ -139,7 +149,7 @@ export function UserProfileProvider(props) {
     );
 
 
-    const getDeactivatedUsers = () =>
+  const getDeactivatedUsers = () =>
     getToken().then((token) =>
       fetch(`${apiUrl}/deactivated`, {
         method: "GET",
@@ -175,14 +185,15 @@ export function UserProfileProvider(props) {
         getUserById,
         getDeactivatedUsers,
         reactivateUserProfile,
-        saveUser
+        saveUser,
+        saveRegisterUser
       }}
     >
       {isFirebaseReady ? (
         props.children
       ) : (
-        <Spinner className="app-spinner dark" />
-      )}
+          <Spinner className="app-spinner dark" />
+        )}
     </UserProfileContext.Provider>
   );
 }

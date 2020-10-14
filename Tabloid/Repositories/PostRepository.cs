@@ -73,7 +73,7 @@ namespace Tabloid.Repositories
                               LEFT JOIN UserProfile u ON p.UserProfileId = u.id
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
                         WHERE p.UserProfileId = @userProfileId
-                     ORDER BY p.PublishDateTime DESC";
+                     ORDER BY p.CreateDateTime DESC";
 
                     cmd.Parameters.AddWithValue("@userProfileId", userProfileId);
                     var reader = cmd.ExecuteReader();
