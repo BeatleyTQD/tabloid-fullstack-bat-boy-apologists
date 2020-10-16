@@ -43,6 +43,8 @@ export default function Header() {
             {/* When isLoggedIn === true, we will render the Home link */}
             {isLoggedIn && (
               <>
+                {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') != -1 ?
+
                 <NavItem>
                   <NavLink
                     className="navlink__color"
@@ -53,7 +55,9 @@ export default function Header() {
                     Tag Management
                   </NavLink>
                 </NavItem>
-                {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"Admin"') != -1 ?
+                : null }
+
+                {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') != -1 ?
                   <NavItem>
                     <NavLink
                       className="navlink__color"
@@ -74,6 +78,8 @@ export default function Header() {
                   <NavLink tag={RRNavLink} className="navlink__color" to="/post/myposts">My Posts</NavLink>
                 </NavItem>
 
+                {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') != -1 ?
+
                 <NavItem>
                   <NavLink
                     className="navlink__color"
@@ -84,6 +90,8 @@ export default function Header() {
                     User Profiles
                   </NavLink>
                 </NavItem>
+                : null }
+
               </>
             )}
           </Nav>

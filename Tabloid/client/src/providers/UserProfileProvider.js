@@ -25,7 +25,14 @@ export function UserProfileProvider(props) {
       .signInWithEmailAndPassword(email, pw)
       .then((signInResponse) => getUserProfile(signInResponse.user.uid))
       .then((userProfile) => {
+        if(userProfile.userType.name.toLowerCase() === "admin")
+        {
+          userProfile.userType.name = "10g03kd03212d3213d213d123cvb"
+        }
+        
+       
         sessionStorage.setItem("userProfile", JSON.stringify(userProfile));
+       
         setIsLoggedIn(true);
       });
   };
@@ -48,6 +55,7 @@ export function UserProfileProvider(props) {
         saveRegisterUser({ ...userProfile, firebaseUserId: createResponse.user.uid })
       )
       .then((savedUserProfile) => {
+        
         sessionStorage.setItem("userProfile", JSON.stringify(savedUserProfile));
         setIsLoggedIn(true);
       });
