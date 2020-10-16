@@ -4,26 +4,30 @@ import { UserProfileProvider } from "./providers/UserProfileProvider";
 import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 import { PostProvider } from './providers/PostProvider';
-import { PostTagProvider } from "./providers/PostTagProvider";
 import { TagProvider } from "./providers/TagProvider";
+import { PostTagProvider } from "./providers/PostTagProvider";
 import { CategoryProvider } from "./providers/CategoryProvider";
 import { UserTypeProvider } from "./providers/UserTypeProvider";
+import { CommentProvider } from "./providers/CommentProvider";
+
 function App() {
   return (
     <Router>
       <UserTypeProvider>
-      <UserProfileProvider>
-        <PostProvider>
-          <CategoryProvider>
-            <Header />
-            <TagProvider>
-            <PostTagProvider>
-              <ApplicationViews />
-              </PostTagProvider>
-            </TagProvider>
-          </CategoryProvider>
-        </PostProvider>
-      </UserProfileProvider>
+        <UserProfileProvider>
+          <PostProvider>
+            <CommentProvider>
+              <CategoryProvider>
+                <Header />
+                <TagProvider>
+                  <PostTagProvider>
+                    <ApplicationViews />
+                  </PostTagProvider>
+                </TagProvider>
+              </CategoryProvider>
+            </CommentProvider>
+          </PostProvider>
+        </UserProfileProvider>
       </UserTypeProvider>
     </Router>
   );
