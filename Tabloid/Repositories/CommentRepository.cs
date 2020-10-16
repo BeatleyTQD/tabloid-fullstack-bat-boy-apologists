@@ -12,7 +12,7 @@ namespace Tabloid.Repositories
     {
         public CommentRepository(IConfiguration configuration) : base(configuration) { }
 
-        public List<Comment> GetAll()
+        public List<Comment> GetCommentsForPost(int postId)
         {
             using (var conn = Connection)
             {
@@ -25,9 +25,12 @@ namespace Tabloid.Repositories
                                           FROM comment c
                                           JOIN UserProfile u ON c.UserProfileId = u.Id
                                           JOIN UserType ut ON u.UserTypeId = ut.Id
+                                         WHERE c.PostId = @postId
                                       ORDER BY c.CreateDateTime DESC";
 
+                    cmd.Parameters.AddWithValue("@postId", postId);
                     var reader = cmd.ExecuteReader();
+
                     var comments = new List<Comment>();
                     while (reader.Read())
                     {
@@ -47,7 +50,7 @@ namespace Tabloid.Repositories
                                 FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                                 LastName = reader.GetString(reader.GetOrdinal("LastName")),
                                 Email = reader.GetString(reader.GetOrdinal("Email")),
-                                CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+                                CreateDateTime = reader.GetDateTime(reader.GetOrdinal("UserCreate")),
                                 ImageLocation = DbUtils.GetNullableString(reader, "ImageLocation"),
                                 UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
                                 IsDeactivated = reader.GetInt32(reader.GetOrdinal("IsDeactivated")),

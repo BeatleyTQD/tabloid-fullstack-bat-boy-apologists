@@ -7,7 +7,7 @@ import { useHistory, useParams } from 'react-router-dom';
 export default function Tag({ tag }) {
   const { deleteTag, getAllTags } = useContext(TagContext);
   const { id } = useParams();
-H
+
   const history = useHistory();
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);

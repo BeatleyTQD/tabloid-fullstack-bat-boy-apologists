@@ -22,19 +22,21 @@ namespace Tabloid.Controllers
             _commentRepository = commentRepository;
         }
 
-        // GET: api/<CommentController>
-        [HttpGet]
-        public IActionResult Get()
+        // GET: api/<CommentController>/5
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
         {
-            return Ok(_commentRepository.GetAll());
+            return Ok(_commentRepository.GetCommentsForPost(id));
         }
 
+        /*
         // GET api/<CommentController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
+        */
 
         // POST api/<CommentController>
         [HttpPost]
