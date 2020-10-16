@@ -9,7 +9,7 @@ using Tabloid.Utils;
 
 namespace Tabloid.Repositories
 {
-    public class SubscriptionRepository : BaseRepository, ISubscriptionRepository, ISubscriptionRepository
+    public class SubscriptionRepository : BaseRepository, ISubscriptionRepository
     {
         public SubscriptionRepository(IConfiguration config) : base(config) { }
         public List<Subscription> GetAllSubscribedIds(int userId)
@@ -30,7 +30,7 @@ namespace Tabloid.Repositories
 
                     while (reader.Read())
                     {
-                        tags.Add(new Subscription()
+                        subscriptions.Add(new Subscription()
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             SubscriberUserProfileId = reader.GetInt32(reader.GetOrdinal("SubscriberUserProfileId")),

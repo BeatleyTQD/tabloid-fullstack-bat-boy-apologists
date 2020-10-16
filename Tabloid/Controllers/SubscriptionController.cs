@@ -13,38 +13,37 @@ namespace Tabloid.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
+
     public class SubscriptionController : ControllerBase
     {
-        // GET: api/<SubscriptionController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        private readonly IPostRepository _postRepository;
+        private readonly ISubscriptionRepository _subscriptionRepository;
 
-        // GET api/<SubscriptionController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        public SubscriptionController(IPostRepository postRepository, ISubscriptionRepository subscriptionRepository)
         {
-            return "value";
+            _postRepository = postRepository;
+            _subscriptionRepository = subscriptionRepository;
         }
 
         // POST api/<SubscriptionController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post(Subscription subscription)
         {
+            _subscriptionRepository.AddSubscription(subscription);
+            return CreatedAtAction("Get", new { id = subscription.Id }, subscription);
         }
 
-        // PUT api/<SubscriptionController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // POST Soft delete, moves User to a "Deactivated" group
+        [Authorize]
+        [HttpPut]
+        public ActionResult Edit(Subscription subscription)
         {
+                _subscriptionRepository.DeactivateSubscription(subscription);
+                return NoContent();
+            
+            
         }
-
-        // DELETE api/<SubscriptionController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        
     }
 }
