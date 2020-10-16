@@ -89,9 +89,9 @@ const PostDetail = () => {
 
                     <section className="row post__content">
                         <p className="col-sm-12 mt-5">{post.content}</p>
-                        <Button color="info" onClick={Comments}>Comments</Button>
                     </section>
                 </section>
+                <Button color="info" onClick={Comments}>Comments</Button>
             </div>
         </div>
     );

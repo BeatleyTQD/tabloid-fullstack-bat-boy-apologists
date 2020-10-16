@@ -1,11 +1,17 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 
 export default function Comment({ comment }) {
 
     return (
         <>
-            <p>Subject:{comment.subject}</p>
-            <p>Content:{comment.content}</p>
+            <div>
+                <h5 className="text-primary">{comment.subject}</h5>
+                <p>{comment.content}</p>
+                <span>{comment.user.displayName}</span>
+                <p className="text-secondary">{new Intl.DateTimeFormat('en-US').format(new Date(comment.createDateTime))}</p>
+            </div>
+            <br />
+            <br />
         </>
     )
 }
