@@ -1,16 +1,17 @@
 import React, { useEffect, useContext, useState } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import { PostTagContext } from "../../providers/PostTagProvider";
-import PostTagEdit from "../Tag/PostTagEdit";
 import { Button, Modal, ModalHeader, ModalFooter } from "reactstrap";
 import { useHistory, useParams, Link } from 'react-router-dom';
 
 
 const PostDetail = () => {
     const [post, setPost] = useState();
-    const [isLoading, setIsLoading ] = useState("true");
-    const { getPost, deletePost } = useContext(PostContext);
+    const [subscribed, setSubscribed ] = useState(false)
+    const [isLoading, setIsLoading ] = useState(true);
+    const { getPost, deletePost, getSubscriptions, subscriptions } = useContext(PostContext);
     const { postTags,getTagsByPostId } = useContext(PostTagContext);
+    
     const { id } = useParams();
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
@@ -19,20 +20,23 @@ const PostDetail = () => {
     const currentUser = JSON.parse(sessionStorage.userProfile)
     const currentUserId = currentUser.id
 
-   
-
-    useEffect(() => {
+    const LoadPost = (id) => {
         getPost(id)
-        .then(setPost)
-        getTagsByPostId(id)
-        setIsLoading(false);
+            .then((postResponse)=> {
+                setPost(postResponse);
+                getTagsByPostId(id)
+                getSubscriptions((s) => {
+                            setSubscribed(subscriptions.some((subscription) => { return subscription.providerUserProfileId === post.userProfileId}));
+                            
+                })
+                setIsLoading(false);
+            })
         
-    }, [getPost, getTagsByPostId, id]);
-
-    if (!post) {
-        return null;
     }
-
+    
+    
+   
+   
     const ManageTags = () => {
         history.push(`/posttag/${post.id}`)
     }
@@ -46,33 +50,53 @@ const PostDetail = () => {
     }
 
     let imageTest = null;
-    if (post.imageLocation) {
-        imageTest = <section className="row justify-content-center">
-            <div>
-                <img src={post.imageLocation} />
-            </div>
-        </section>
-    }
-
     let userCheck;
-    if (post.userProfileId === currentUserId) {
-        userCheck =
-            <div className="row">
-                <Link to={`/post/${post.id}/edit`} className="btn btn-warning" title="Edit">Edit</Link>
-                &nbsp;
-                <Button color="danger" onClick={toggle}>Delete</Button>
-                <Modal isOpen={modal} toggle={toggle}>
-                    <ModalHeader toggle={toggle}>Are you sure you want to delete this post?</ModalHeader>
-                    <ModalFooter>
-                        <Button color="danger" onClick={Delete}>Delete</Button>
-                        <Button color="secondary" onClick={toggle}>Cancel</Button>
-                    </ModalFooter>
-                </Modal>
-            </div>
+    if (!isLoading )  {
+        
+        
+        if (post.imageLocation) {
+            imageTest = <section className="row justify-content-center">
+                <div>
+                    <img src={post.imageLocation} />
+                </div>
+            </section>
+        }
+        if (post.userProfileId === currentUserId) {
+            userCheck =
+                <div className="row">
+                    <Link to={`/post/${post.id}/edit`} className="btn btn-warning" title="Edit">Edit</Link>
+                    &nbsp;
+                    <Button color="danger" onClick={toggle}>Delete</Button>
+                    <Modal isOpen={modal} toggle={toggle}>
+                        <ModalHeader toggle={toggle}>Are you sure you want to delete this post?</ModalHeader>
+                        <ModalFooter>
+                            <Button color="danger" onClick={Delete}>Delete</Button>
+                            <Button color="secondary" onClick={toggle}>Cancel</Button>
+                        </ModalFooter>
+                    </Modal>
+                </div>
+        }
     }
+    
+
+
+    useEffect(() => {
+        LoadPost(id);
+
+        
+        
+        
+
+    }, [id]);
+
+
+    
+    
+
+
 
     return (
-        (!isLoading) ?
+        (!isLoading && post !== undefined) ?
         (
         <div className="container">
             <div className="post">
@@ -89,7 +113,7 @@ const PostDetail = () => {
                         </p>
                         <p className="text-black-50">Published on {new Intl.DateTimeFormat('en-US').format(new Date(post.publishDateTime))}</p>
                     </div>
-
+        <h4>Subscribed?: {(subscriptions.some((subscription) => { return subscription.providerUserProfileId === post.userProfileId})) && "True"}</h4>
                     <div className="row justify-content-sm-start div__tags" >
                             <Button onClick={ManageTags} >Manage Tags</Button>
                            
