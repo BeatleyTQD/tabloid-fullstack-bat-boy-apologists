@@ -15,6 +15,7 @@ import CategoryList from "./Category/CategoryList";
 import PostDetail from "../components/post/PostDetail";
 import PostForm from "../components/post/PostForm";
 import PostEditForm from "./post/PostEditForm";
+import PostTagEdit from "./Tag/PostTagEdit";
 import CategoryForm from "./Category/CategoryForm";
 import CategoryEditForm from './Category/CategoryEditForm';
 import MyPosts from "./post/MyPosts";
@@ -64,8 +65,12 @@ export default function ApplicationViews() {
           {isLoggedIn ? <PostDetail /> : <Redirect to="/login" />}
         </Route>
 
-        <Route path="/post/:id/edit" >
+        <Route path="/post/:id/edit" exact >
           {isLoggedIn ? <PostEditForm /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route exact path="/posttag/:id" >
+          {isLoggedIn ? <PostTagEdit /> : <Redirect to="/login" />}
         </Route>
 
         {/* ///////////COMMENTS/////////////// */}
