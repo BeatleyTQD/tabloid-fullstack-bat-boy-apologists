@@ -7,7 +7,7 @@ import { useHistory, useParams } from 'react-router-dom';
 export default function Tag({ tag }) {
   const { deleteTag, getAllTags } = useContext(TagContext);
   const { id } = useParams();
-  const intId = parseInt(id);
+H
   const history = useHistory();
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
@@ -31,7 +31,7 @@ export default function Tag({ tag }) {
         <Modal isOpen={modal} toggle={toggle}>
           <ModalHeader toggle={toggle}>Are you sure you want to delete?</ModalHeader>
           <ModalFooter>
-            <Button color="primary" onClick={Delete}>Delete</Button>{' '}
+            <Button color="danger" onClick={Delete}>Delete</Button>{' '}
             <Button color="secondary" onClick={toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>
