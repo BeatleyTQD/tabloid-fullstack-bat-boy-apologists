@@ -45,6 +45,10 @@ const PostDetail = () => {
             })
     }
 
+    const Comments = () => {
+        history.push(`/comments/${id}`)
+    }
+
     let imageTest = null;
     if (post.imageLocation) {
         imageTest = <section className="row justify-content-center">
@@ -86,6 +90,7 @@ const PostDetail = () => {
                             Written by {post.userProfile.displayName}
                             <br />
                             This post takes approximately {post.readTime} {(post.readTime == 1) ? "minute" : "minutes"} to read
+
                         </p>
                         <p className="text-black-50">Published on {new Intl.DateTimeFormat('en-US').format(new Date(post.publishDateTime))}</p>
                     </div>
@@ -105,6 +110,7 @@ const PostDetail = () => {
                         <p className="col-sm-12 mt-5">{post.content}</p>
                     </section>
                 </section>
+                <Button color="info" onClick={Comments}>Comments</Button>
             </div>
         </div>
         ) : null

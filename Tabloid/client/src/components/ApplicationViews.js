@@ -3,7 +3,6 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
-import Post from "../components/post/Post"
 import PostList from "./post/PostList";
 import Home from "./Home";
 import UserProfileList from "../components/UserProfile/UserProfileList";
@@ -20,6 +19,7 @@ import PostTagEdit from "./Tag/PostTagEdit";
 import CategoryForm from "./Category/CategoryForm";
 import CategoryEditForm from './Category/CategoryEditForm';
 import MyPosts from "./post/MyPosts";
+import PostComments from "./Comment/PostComments";
 
 
 
@@ -71,6 +71,11 @@ export default function ApplicationViews() {
 
         <Route exact path="/posttag/:id" >
           {isLoggedIn ? <PostTagEdit /> : <Redirect to="/login" />}
+        </Route>
+
+        {/* ///////////COMMENTS/////////////// */}
+        <Route path="/comments/:id" >
+          {isLoggedIn ? <PostComments /> : <Redirect to="/login" />}
         </Route>
 
 
