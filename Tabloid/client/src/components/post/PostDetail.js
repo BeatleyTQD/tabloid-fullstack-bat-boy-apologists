@@ -10,7 +10,7 @@ const PostDetail = () => {
     const [post, setPost] = useState();
     const [isLoading, setIsLoading ] = useState("true");
     const { getPost, deletePost } = useContext(PostContext);
-    const { getTagsByPostId,postTags } = useContext(PostTagContext);
+    const { postTags,getTagsByPostId } = useContext(PostTagContext);
     const { id } = useParams();
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
@@ -27,7 +27,7 @@ const PostDetail = () => {
         getTagsByPostId(id)
         setIsLoading(false);
         
-    }, []);
+    }, [getPost, getTagsByPostId, id]);
 
     if (!post) {
         return null;

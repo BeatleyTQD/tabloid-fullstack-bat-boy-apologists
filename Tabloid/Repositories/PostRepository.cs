@@ -9,15 +9,26 @@ using Tabloid.Utils;
 
 namespace Tabloid.Repositories
 {
-    public class PostRepository : BaseRepository, IPostRepository
+    public interface IPostRepository1
+    {
+        void Add(Post post);
+        void DeletePost(int postId);
+        List<Post> GetAllPublishedPosts();
+        List<Post> GetAllUserPosts(int userProfileId);
+        Post GetPublishedPostById(int id);
+        Post GetUserPostById(int id, int userProfileId);
+        void UpdatePost(Post post);
+    }
+
+    public class PostRepository : BaseRepository, IPostRepository, IPostRepository1
     {
         public PostRepository(IConfiguration config) : base(config) { }
         public List<Post> GetAllPublishedPosts()
         {
-            using(var conn = Connection)
+            using (var conn = Connection)
             {
                 conn.Open();
-                using(var cmd = conn.CreateCommand())
+                using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
                        SELECT p.Id, p.Title, p.Content, 
@@ -53,10 +64,10 @@ namespace Tabloid.Repositories
 
         public List<Post> GetAllUserPosts(int userProfileId)
         {
-            using(var conn = Connection)
+            using (var conn = Connection)
             {
                 conn.Open();
-                using(var cmd = conn.CreateCommand())
+                using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
                        SELECT p.Id, p.Title, p.Content, 
@@ -72,7 +83,7 @@ namespace Tabloid.Repositories
                               LEFT JOIN Category c ON p.CategoryId = c.id
                               LEFT JOIN UserProfile u ON p.UserProfileId = u.id
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
-                        WHERE p.UserProfileId = @userProfileId
+                        WHERE p.UserProfileId = @userProfileId AND u.IsDeactivated = 0
                      ORDER BY p.CreateDateTime DESC";
 
                     cmd.Parameters.AddWithValue("@userProfileId", userProfileId);
@@ -94,10 +105,10 @@ namespace Tabloid.Repositories
 
         public Post GetPublishedPostById(int id)
         {
-            using(var conn = Connection)
+            using (var conn = Connection)
             {
                 conn.Open();
-                using(var cmd = conn.CreateCommand())
+                using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
                        SELECT p.Id, p.Title, p.Content, 
@@ -113,9 +124,9 @@ namespace Tabloid.Repositories
                               LEFT JOIN Category c ON p.CategoryId = c.id
                               LEFT JOIN UserProfile u ON p.UserProfileId = u.id
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
-                        WHERE  p.id = @id";
+                        WHERE  p.id = @id AND u.IsDeactivated = 0";
 
-                        //WHERE IsApproved = 1 AND PublishDateTime < SYSDATETIME() AND p.id = @id
+                    //WHERE IsApproved = 1 AND PublishDateTime < SYSDATETIME() AND p.id = @id
 
                     cmd.Parameters.AddWithValue("@id", id);
                     var reader = cmd.ExecuteReader();
@@ -136,10 +147,10 @@ namespace Tabloid.Repositories
 
         public Post GetUserPostById(int id, int userProfileId)
         {
-            using(var conn = Connection)
+            using (var conn = Connection)
             {
                 conn.Open();
-                using(var cmd = conn.CreateCommand())
+                using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
                        SELECT p.Id, p.Title, p.Content, 
@@ -155,7 +166,7 @@ namespace Tabloid.Repositories
                               LEFT JOIN Category c ON p.CategoryId = c.id
                               LEFT JOIN UserProfile u ON p.UserProfileId = u.id
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
-                        WHERE p.id = @id AND p.UserProfileId = @userProfileId";
+                        WHERE p.id = @id AND p.UserProfileId = @userProfileId AND u.IsDeactivated = 0";
 
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.Parameters.AddWithValue("@userProfileId", userProfileId);
@@ -177,10 +188,10 @@ namespace Tabloid.Repositories
 
         public void Add(Post post)
         {
-            using(var conn = Connection)
+            using (var conn = Connection)
             {
                 conn.Open();
-                using(var cmd = conn.CreateCommand())
+                using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
                         INSERT INTO Post (
@@ -209,44 +220,44 @@ namespace Tabloid.Repositories
             return new Post()
             {
                 Id = DbUtils.GetInt(reader, "Id"),
-                    Title = DbUtils.GetString(reader, "Title"),
-                    Content = DbUtils.GetString(reader, "Content"),
-                    ImageLocation = DbUtils.GetString(reader, "HeaderImage"),
+                Title = DbUtils.GetString(reader, "Title"),
+                Content = DbUtils.GetString(reader, "Content"),
+                ImageLocation = DbUtils.GetString(reader, "HeaderImage"),
+                CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
+                CategoryId = DbUtils.GetInt(reader, "CategoryId"),
+                Category = new Category()
+                {
+                    Id = DbUtils.GetInt(reader, "CategoryId"),
+                    Name = DbUtils.GetString(reader, "CategoryName")
+                },
+                UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                UserProfile = new UserProfile()
+                {
+                    Id = DbUtils.GetInt(reader, "UserProfileId"),
+                    FirstName = DbUtils.GetString(reader, "FirstName"),
+                    LastName = DbUtils.GetString(reader, "LastName"),
+                    DisplayName = DbUtils.GetString(reader, "DisplayName"),
+                    Email = DbUtils.GetString(reader, "Email"),
                     CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
-                    PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
-                    CategoryId = DbUtils.GetInt(reader, "CategoryId"),
-                    Category = new Category()
+                    ImageLocation = DbUtils.GetString(reader, "AvatarImage"),
+                    UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
+                    UserType = new UserType()
                     {
-                        Id = DbUtils.GetInt(reader, "CategoryId"),
-                        Name = DbUtils.GetString(reader, "CategoryName")
-                        },
-                        UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
-                        UserProfile = new UserProfile()
-                        {
-                        Id = DbUtils.GetInt(reader, "UserProfileId"),
-                        FirstName = DbUtils.GetString(reader, "FirstName"),
-                        LastName = DbUtils.GetString(reader, "LastName"),
-                        DisplayName = DbUtils.GetString(reader, "DisplayName"),
-                        Email = DbUtils.GetString(reader, "Email"),
-                        CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
-                        ImageLocation = DbUtils.GetString(reader, "AvatarImage"),
-                        UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
-                        UserType = new UserType()
-                        {
                         Id = DbUtils.GetInt(reader, "UserTypeId"),
                         Name = DbUtils.GetString(reader, "UserTypeName")
-                        }
-                        }
+                    }
+                }
             };
         }
 
         public void DeletePost(int postId)
         {
-            using(SqlConnection conn = Connection)
+            using (SqlConnection conn = Connection)
             {
                 conn.Open();
 
-                using(SqlCommand cmd = conn.CreateCommand())
+                using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
                         DELETE FROM PostTag WHERE PostId = @Id;
@@ -262,11 +273,11 @@ namespace Tabloid.Repositories
 
         public void UpdatePost(Post post)
         {
-            using(SqlConnection conn = Connection)
+            using (SqlConnection conn = Connection)
             {
                 conn.Open();
 
-                using(SqlCommand cmd = conn.CreateCommand())
+                using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"UPDATE Post
                                            SET
