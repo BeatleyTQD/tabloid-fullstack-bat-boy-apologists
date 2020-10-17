@@ -8,22 +8,25 @@ import { PostTagProvider } from "./providers/PostTagProvider";
 import { TagProvider } from "./providers/TagProvider";
 import { CategoryProvider } from "./providers/CategoryProvider";
 import { UserTypeProvider } from "./providers/UserTypeProvider";
+import { ImageUploadProvider } from "./providers/ImageUploadProvider";
 function App() {
   return (
     <Router>
       <UserTypeProvider>
-      <UserProfileProvider>
-        <PostProvider>
-          <CategoryProvider>
-            <Header />
-            <TagProvider>
-            <PostTagProvider>
-              <ApplicationViews />
-              </PostTagProvider>
-            </TagProvider>
-          </CategoryProvider>
-        </PostProvider>
-      </UserProfileProvider>
+        <UserProfileProvider>
+          <ImageUploadProvider>
+            <PostProvider>
+              <CategoryProvider>
+                <Header />
+                <TagProvider>
+                  <PostTagProvider>
+                    <ApplicationViews />
+                  </PostTagProvider>
+                </TagProvider>
+              </CategoryProvider>
+            </PostProvider>
+          </ImageUploadProvider>
+        </UserProfileProvider>
       </UserTypeProvider>
     </Router>
   );
