@@ -19,8 +19,6 @@ const PostDetail = () => {
     const currentUser = JSON.parse(sessionStorage.userProfile)
     const currentUserId = currentUser.id
 
-
-
     useEffect(() => {
         getPost(id)
             .then(setPost)
@@ -43,6 +41,10 @@ const PostDetail = () => {
             .then(() => {
                 history.push("/post");
             })
+    }
+
+    const Comments = () => {
+        history.push(`/comments/${id}`)
     }
 
     let imageTest = null;
@@ -85,8 +87,9 @@ const PostDetail = () => {
                                 <p className="text-secondary">
                                     Written by {post.userProfile.displayName}
                                     <br />
-                            This post takes approximately {post.readTime} {(post.readTime == 1) ? "minute" : "minutes"} to read
-                        </p>
+                                    This post takes approximately {post.readTime} {(post.readTime == 1) ? "minute" : "minutes"} to read
+
+                                </p>
                                 <p className="text-black-50">Published on {new Intl.DateTimeFormat('en-US').format(new Date(post.publishDateTime))}</p>
                             </div>
 
@@ -101,10 +104,12 @@ const PostDetail = () => {
 
                             {imageTest}
 
+
                             <section className="row post__content">
                                 <p className="col-sm-12 mt-5">{post.content}</p>
                             </section>
                         </section>
+                        <Button color="info" onClick={Comments}>Comments</Button>
                     </div>
                 </div>
             ) : null
