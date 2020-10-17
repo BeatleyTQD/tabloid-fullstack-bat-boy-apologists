@@ -8,9 +8,9 @@ import { useHistory, useParams, Link } from 'react-router-dom';
 
 const PostDetail = () => {
     const [post, setPost] = useState();
-    const [isLoading, setIsLoading ] = useState("true");
+    const [isLoading, setIsLoading] = useState("true");
     const { getPost, deletePost } = useContext(PostContext);
-    const { getTagsByPostId,postTags } = useContext(PostTagContext);
+    const { getTagsByPostId, postTags } = useContext(PostTagContext);
     const { id } = useParams();
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
@@ -19,14 +19,14 @@ const PostDetail = () => {
     const currentUser = JSON.parse(sessionStorage.userProfile)
     const currentUserId = currentUser.id
 
-   
+
 
     useEffect(() => {
         getPost(id)
-        .then(setPost)
+            .then(setPost)
         getTagsByPostId(id)
         setIsLoading(false);
-        
+
     }, []);
 
     if (!post) {
@@ -49,7 +49,7 @@ const PostDetail = () => {
     if (post.imageLocation) {
         imageTest = <section className="row justify-content-center">
             <div>
-                <img src={post.imageLocation} />
+                <img src={post.imageLocation.startsWith("http") ? post.imageLocation : `/${post.imageLocation}`} />
             </div>
         </section>
     }
@@ -73,43 +73,43 @@ const PostDetail = () => {
 
     return (
         (!isLoading) ?
-        (
-        <div className="container">
-            <div className="post">
-                <section className="px-3">
-                    <div className="row justify-content-between">
-                        <h1 className="text-secondary">{post.title}</h1>
-                        <h1 className="text-black-50">{post.category.name}</h1>
-                    </div>
-                    <div className="row justify-content-between">
-                        <p className="text-secondary">
-                            Written by {post.userProfile.displayName}
-                            <br />
+            (
+                <div className="container">
+                    <div className="post">
+                        <section className="px-3">
+                            <div className="row justify-content-between">
+                                <h1 className="text-secondary">{post.title}</h1>
+                                <h1 className="text-black-50">{post.category.name}</h1>
+                            </div>
+                            <div className="row justify-content-between">
+                                <p className="text-secondary">
+                                    Written by {post.userProfile.displayName}
+                                    <br />
                             This post takes approximately {post.readTime} {(post.readTime == 1) ? "minute" : "minutes"} to read
                         </p>
-                        <p className="text-black-50">Published on {new Intl.DateTimeFormat('en-US').format(new Date(post.publishDateTime))}</p>
+                                <p className="text-black-50">Published on {new Intl.DateTimeFormat('en-US').format(new Date(post.publishDateTime))}</p>
+                            </div>
+
+                            <div className="row justify-content-sm-start div__tags" >
+                                <Button onClick={ManageTags} >Manage Tags</Button>
+
+                                {(postTags !== null || postTags !== undefined) && postTags.map((postTag) => <span key={postTag.id} className="span__posttag">{postTag.name}</span>)}
+
+                            </div>
+
+                            {userCheck}
+
+                            {imageTest}
+
+                            <section className="row post__content">
+                                <p className="col-sm-12 mt-5">{post.content}</p>
+                            </section>
+                        </section>
                     </div>
-
-                    <div className="row justify-content-sm-start div__tags" >
-                            <Button onClick={ManageTags} >Manage Tags</Button>
-                           
-                               {(postTags !== null || postTags !== undefined) && postTags.map((postTag) => <span key={postTag.id} className="span__posttag">{postTag.name}</span> ) }
-                             
-                        </div>
-
-                    {userCheck}
-
-                    {imageTest}
-
-                    <section className="row post__content">
-                        <p className="col-sm-12 mt-5">{post.content}</p>
-                    </section>
-                </section>
-            </div>
-        </div>
-        ) : null
+                </div>
+            ) : null
     );
-    
+
 };
 
 export default PostDetail;
