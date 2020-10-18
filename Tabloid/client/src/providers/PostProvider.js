@@ -21,8 +21,15 @@ export const PostProvider = (props) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(subscription)
-            }).then(resp => resp.json()));
-    };
+            }).then(function (response) {
+                if (!response.ok) {
+                  return false;
+                }
+        
+                return response.json;
+        
+              })
+    )};
 
     const unsubscribe = (subscription) => {
         return getToken().then((token) =>

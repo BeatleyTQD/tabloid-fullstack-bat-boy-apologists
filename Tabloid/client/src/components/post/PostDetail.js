@@ -38,8 +38,14 @@ const PostDetail = () => {
         }
         setIsLoading(true)
         addSubscription(newSubscription)
-        .then(() => {
-            LoadPost(id);
+        .then((response) => {
+            if (response !== false) {
+                LoadPost(id);
+            } else {
+                window.alert("You cannot subscribe to your own posts.")
+                LoadPost(id);
+            }
+            
         })
     }
 
@@ -131,11 +137,16 @@ const PostDetail = () => {
                         <p className="text-secondary">
                             Written by {post.userProfile.displayName}
                             <br />
-                            Subscribe: {( subscriptions.find((subscription) => { return subscription.providerUserProfileId === post.userProfileId})) ?
+                            { }
+                            Subscribe: {
+                            (currentUserId !== post.userProfileId) ?
+                            (
+
+                            ( subscriptions.find((subscription) => { return subscription.providerUserProfileId === post.userProfileId})) ?
 
                             <Button className="btn__unsubscribe bg-info" onClick={unsubscribeAuthor}>Unsubscribe</Button>
                             :
-                            <Button className="btn__subscribe bg-primary" onClick={subscribeToAuthor}>Subscribe</Button> }<br />
+                            <Button className="btn__subscribe bg-primary" onClick={subscribeToAuthor}>Subscribe</Button>):<strong>Your Post</strong> }<br />
                             This post takes approximately {post.readTime} {(post.readTime == 1) ? "minute" : "minutes"} to read
 
                         </p>

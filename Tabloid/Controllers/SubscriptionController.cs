@@ -54,8 +54,17 @@ namespace Tabloid.Controllers
             int userId = user.Id;
             subscription.SubscriberUserProfileId = userId;
 
-            _subscriptionRepository.AddSubscription(subscription);
-            return CreatedAtAction("Get", new { id = subscription.Id }, subscription);
+            if (userId != subscription.ProviderUserProfileId)
+            {
+                _subscriptionRepository.AddSubscription(subscription);
+                return CreatedAtAction("Get", new { id = subscription.Id }, subscription);
+            }
+            else
+            {
+                return Forbid();
+            }
+
+            
         }
 
         // POST Deactivates Subscription
