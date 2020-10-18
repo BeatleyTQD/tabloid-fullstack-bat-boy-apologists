@@ -7,9 +7,8 @@ import { useHistory, useParams, Link } from 'react-router-dom';
 
 const PostDetail = () => {
     const [post, setPost] = useState();
-    const [subscribed, setSubscribed ] = useState(false)
     const [isLoading, setIsLoading ] = useState(true);
-    const { getPost, deletePost, getSubscriptions, subscriptions } = useContext(PostContext);
+    const { getPost, deletePost, addSubscription,unsubscribe, getSubscriptions,subscriptions } = useContext(PostContext);
     const { postTags,getTagsByPostId } = useContext(PostTagContext);
     
     const { id } = useParams();
@@ -24,17 +23,37 @@ const PostDetail = () => {
         getPost(id)
             .then((postResponse)=> {
                 setPost(postResponse);
-                getTagsByPostId(id)
-                getSubscriptions((s) => {
-                            setSubscribed(subscriptions.some((subscription) => { return subscription.providerUserProfileId === post.userProfileId}));
-                            
+                getTagsByPostId(postResponse.id);
+                getSubscriptions()
+                 setIsLoading(false);
                 })
-                setIsLoading(false);
-            })
+                
         
+            
     }
     
-    
+    const subscribeToAuthor = () => {
+        const newSubscription = {
+            "providerUserProfileId":post.userProfileId
+        }
+        setIsLoading(true)
+        addSubscription(newSubscription)
+        .then(() => {
+            LoadPost(id);
+        })
+    }
+
+    const unsubscribeAuthor = () => {
+        
+        const oldSubscription = {
+            "providerUserProfileId":post.userProfileId
+        }
+        setIsLoading(true)
+        unsubscribe(oldSubscription)
+        .then(() => {
+            LoadPost(id);
+        })
+    }
    
    
     const ManageTags = () => {
@@ -53,11 +72,10 @@ const PostDetail = () => {
         history.push(`/comments/${id}`)
     }
 
+
     let imageTest = null;
     let userCheck;
     if (!isLoading )  {
-        
-        
         if (post.imageLocation) {
             imageTest = <section className="row justify-content-center">
                 <div>
@@ -82,15 +100,13 @@ const PostDetail = () => {
         }
     }
     
-
+    
+    
 
     useEffect(() => {
         LoadPost(id);
-
         
-        
-        
-
+    
     }, [id]);
 
 
@@ -102,6 +118,7 @@ const PostDetail = () => {
     return (
         (!isLoading && post !== undefined) ?
         (
+
         <div className="container">
             <div className="post">
                 <section className="px-3">
@@ -110,15 +127,21 @@ const PostDetail = () => {
                         <h1 className="text-black-50">{post.category.name}</h1>
                     </div>
                     <div className="row justify-content-between">
+                    
                         <p className="text-secondary">
                             Written by {post.userProfile.displayName}
                             <br />
+                            Subscribe: {( subscriptions.find((subscription) => { return subscription.providerUserProfileId === post.userProfileId})) ?
+
+                            <Button className="btn__unsubscribe bg-info" onClick={unsubscribeAuthor}>Unsubscribe</Button>
+                            :
+                            <Button className="btn__subscribe bg-primary" onClick={subscribeToAuthor}>Subscribe</Button> }<br />
                             This post takes approximately {post.readTime} {(post.readTime == 1) ? "minute" : "minutes"} to read
 
                         </p>
                         <p className="text-black-50">Published on {new Intl.DateTimeFormat('en-US').format(new Date(post.publishDateTime))}</p>
                     </div>
-        <h4>Subscribed?: {(subscriptions.some((subscription) => { return subscription.providerUserProfileId === post.userProfileId})) && "True"}</h4>
+        
                     <div className="row justify-content-sm-start div__tags" >
                             <Button onClick={ManageTags} >Manage Tags</Button>
                            

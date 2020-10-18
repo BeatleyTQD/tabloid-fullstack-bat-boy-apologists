@@ -13,6 +13,7 @@ import { PostTagContext } from "../../providers/PostTagProvider";
 import { TagContext } from "../../providers/TagProvider";
 
 
+
 const PostTagEdit = () => {
 
     const [post, setPost] = useState("");
@@ -29,7 +30,7 @@ const PostTagEdit = () => {
         history.push("/post");
     }
     const schema = Yup.object().shape({
-      boat_ids: Yup.array()
+      tag_Ids: Yup.array()
         .transform(function(o, obj) {
           return o.filter(o => o);
         })
@@ -62,10 +63,16 @@ const PostTagEdit = () => {
         // console.log(newTags)
         deleteTagsByPostId(postId)
         .then((p)=> {
+           if (!newTags.length > 0) {
+            history.push(`/post/${postId}`)
+           }
+           else {
             newTags.map((postTag) => {
-                addPostTag(postTag)
-                .then(history.push(`/post/${postId}`))
-            })
+              addPostTag(postTag)
+              .then(history.push(`/post/${postId}`))
+          })
+           }
+            
         })
         
         
