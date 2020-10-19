@@ -68,6 +68,7 @@ const PostForm = () => {
                             <input
                                 id="imageLocation"
                                 type="file"
+                                accept="image/*"
                                 className="form-control"
                                 onChange={handleImgChange}
                             />
