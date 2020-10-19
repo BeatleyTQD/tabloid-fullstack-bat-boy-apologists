@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import { CategoryContext } from "../../providers/CategoryProvider";
+import { ImageContext } from "../../providers/ImageUploadProvider";
 import { useHistory, useParams } from "react-router-dom";
 
 const PostForm = () => {
@@ -10,7 +11,9 @@ const PostForm = () => {
     const { id } = useParams();
     const [isLoading, setIsLoading] = useState(false);
 
-    // Use this hook to allow us to programatically redirect users
+    const { uploadImage } = useContext(ImageContext)
+    const [theFile, setFile] = useState(null)
+
     const history = useHistory();
     const currentUser = JSON.parse(sessionStorage.userProfile);
 
@@ -23,6 +26,10 @@ const PostForm = () => {
             .then(setPost);
     }, []);
 
+    const handleImgChange = e => {
+        setFile(e.target.files[0]);
+    }
+
     const handleFieldChange = evt => {
         const stateToChange = { ...post }
         stateToChange[evt.target.id] = evt.target.value
@@ -31,6 +38,12 @@ const PostForm = () => {
 
     const submit = (e) => {
         setIsLoading(true)
+        //If there is a change in header image, check if the image's filename matches the filename in the database.
+        //If not, upload the new image and set image location to the image filename.
+        if (theFile != null && post.imageLocation != theFile.name) {
+            uploadImage(theFile);
+            post.imageLocation = theFile.name;
+        };
         post.categoryId = parseInt(post.categoryId);
         updatePost(post).then((p) => {
             history.push(`/post/${post.id}`);
@@ -54,12 +67,13 @@ const PostForm = () => {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="imageLocation" className="control-label">Header Image URL</label>
+                            <label htmlFor="imageLocation" className="control-label">Header Image</label>
                             <input
                                 id="imageLocation"
                                 className="form-control"
-                                onChange={handleFieldChange}
+                                onChange={handleImgChange}
                                 type="file"
+                                accept="image/*"
                                 placeholder={post.imageLocation}
                             />
                         </div>
