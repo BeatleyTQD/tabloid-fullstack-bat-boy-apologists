@@ -7,8 +7,7 @@ import { Button } from 'reactstrap';
 
 export default function PostComments() {
     const [post, setPost] = useState();
-    const [comments, setComments] = useState([]);
-    const { getCommentsForPost } = useContext(CommentContext);
+    const { getCommentsForPost, comments } = useContext(CommentContext);
     const { getPost } = useContext(PostContext);
     const history = useHistory();
 
@@ -16,7 +15,7 @@ export default function PostComments() {
 
     useEffect(() => {
         const intId = parseInt(id)
-        getCommentsForPost(intId).then(setComments);
+        getCommentsForPost(intId);
         getPost(intId).then(setPost);
     }, []);
 

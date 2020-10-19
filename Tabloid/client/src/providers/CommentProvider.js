@@ -16,6 +16,7 @@ export const CommentProvider = (props) => {
                     Authorization: `Bearer ${token}`,
                 }
             }).then((res) => res.json())
+                .then(setComments)
         );
     };
 
