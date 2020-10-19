@@ -23,6 +23,9 @@ export default function PostComments() {
     const GoBack = () => {
         history.push(`/post/${id}`)
     }
+    const AddComment = () => {
+        history.push(`/post/${id}/addcomment`)
+    }
 
     if (!comments || !post) {
         return null;
@@ -30,12 +33,12 @@ export default function PostComments() {
     return (
         <>
             <div className="container">
-                <h1 className="text-secondary">{post.title}</h1>
+                <h1 className="text-secondary">{post.title} <Button color="info" onClick={AddComment}>Add Comment</Button></h1>
                 <br />
                 {comments.map((comment) => (
                     <Comment key={comment.id} comment={comment} />
                 ))}
-                <Button color="info" onClick={GoBack}>Go Back</Button>
+                <Button color="secondary" onClick={GoBack}>Go Back</Button>
             </div>
         </>
     )
