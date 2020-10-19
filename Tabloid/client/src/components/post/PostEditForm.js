@@ -59,7 +59,8 @@ const PostForm = () => {
                                 id="imageLocation"
                                 className="form-control"
                                 onChange={handleFieldChange}
-                                value={post.imageLocation ?? undefined}
+                                type="file"
+                                placeholder={post.imageLocation}
                             />
                         </div>
                         <div className="form-group">
