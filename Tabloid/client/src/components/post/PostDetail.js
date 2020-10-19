@@ -51,7 +51,7 @@ const PostDetail = () => {
     if (post.imageLocation) {
         imageTest = <section className="row justify-content-center">
             <div>
-                <img src={post.imageLocation.startsWith("http") ? post.imageLocation : `/${post.imageLocation}`} />
+                <img style={{ maxWidth: "500px", maxHeight: "auto" }} src={post.imageLocation.startsWith("http") ? post.imageLocation : `/${post.imageLocation}`} />
             </div>
         </section>
     }
