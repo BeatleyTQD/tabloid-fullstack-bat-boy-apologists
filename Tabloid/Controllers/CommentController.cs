@@ -32,7 +32,8 @@ namespace Tabloid.Controllers
 
         
         // GET api/<CommentController>/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("GetById/{id}")]
         public IActionResult GetById(int id)
         {
             return Ok(_commentRepository.GetCommentById(id));
@@ -47,8 +48,9 @@ namespace Tabloid.Controllers
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(Comment comment)
         {
+            _commentRepository.UpdateComment(comment);
         }
 
         // DELETE api/<CommentController>/5

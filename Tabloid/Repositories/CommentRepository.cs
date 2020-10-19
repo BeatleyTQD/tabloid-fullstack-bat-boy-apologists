@@ -109,6 +109,27 @@ namespace Tabloid.Repositories
             }
         }
 
+        public void UpdateComment(Comment comment)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Comment
+                           SET Subject = @Subject,
+                               Content = @Content
+                         WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@Content", comment.Content);
+                    cmd.Parameters.AddWithValue("@Subject", comment.Subject);
+                    cmd.Parameters.AddWithValue("@id", comment.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+        }
+
         public Comment GetCommentById(int id)
         {
             using (var conn = Connection)

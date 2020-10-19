@@ -1,12 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { CommentContext } from "../../providers/CommentProvider";
 import { Button, Modal, ModalHeader, ModalFooter } from "reactstrap";
+import { useHistory } from 'react-router-dom';
 
 
 export default function Comment({ comment }) {
     const { deleteComment, getCommentsForPost } = useContext(CommentContext);
     const currentUser = JSON.parse(sessionStorage.userProfile)
     const currentUserId = currentUser.id
+    const history = useHistory();
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
 
@@ -15,13 +17,16 @@ export default function Comment({ comment }) {
             .then(toggle)
             .then(getCommentsForPost(comment.postId));
     }
-    // <Button color="warning" onClick={Edit}>Edit</Button>{" "}
 
+    const Edit = () => {
+        history.push(`/comment/${comment.id}/edit`)
+    }
 
     let userCheck;
     if (comment.userProfileId === currentUserId) {
         userCheck =
             <>
+                <Button color="warning" onClick={Edit}>Edit</Button>{" "}
                 <Button color="danger" onClick={toggle} >Delete</Button>{" "}
                 <Modal isOpen={modal} toggle={toggle}>
                     <ModalHeader toggle={toggle}>Are you sure you want to delete?</ModalHeader>
