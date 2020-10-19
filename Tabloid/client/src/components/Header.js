@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { NavLink as RRNavLink } from "react-router-dom";
 import {
   Collapse,
@@ -10,11 +10,15 @@ import {
   NavLink,
 } from "reactstrap";
 import { UserProfileContext } from "../providers/UserProfileProvider";
+import { PostContext} from "../providers/PostProvider";
 
 export default function Header() {
   const { isLoggedIn, logout } = useContext(UserProfileContext);
+  const { subscriptions } = useContext(PostContext);
   const [isOpen, setIsOpen] = useState(false);
+  const [subscribed, setSubscribed] = useState("")
   const toggle = () => setIsOpen(!isOpen);
+  
 
   return (
     <div>
@@ -78,7 +82,10 @@ export default function Header() {
                   <NavLink tag={RRNavLink} className="navlink__color" to="/post/myposts">My Posts</NavLink>
                 </NavItem>
 
-                {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') != -1 ?
+                {(subscriptions.length > 0) && 
+                <NavItem>
+                 <NavLink tag={RRNavLink} className="navlink__color" to="/post/subscribedPosts">Subscribed</NavLink>
+                </NavItem>}
 
                 <NavItem>
                   <NavLink

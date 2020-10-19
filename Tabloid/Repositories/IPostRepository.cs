@@ -8,6 +8,7 @@ namespace Tabloid.Repositories
         void Add(Post post);
         void DeletePost(int postId);
         List<Post> GetAllPublishedPosts();
+        List<Post> GetAllSubscribedPosts(int subscriberUserProfileId);
         List<Post> GetAllUserPosts(int userProfileId);
         Post GetPublishedPostById(int id);
         Post GetUserPostById(int id, int userProfileId);

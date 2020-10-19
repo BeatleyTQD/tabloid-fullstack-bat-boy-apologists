@@ -19,6 +19,7 @@ import PostTagEdit from "./Tag/PostTagEdit";
 import CategoryForm from "./Category/CategoryForm";
 import CategoryEditForm from './Category/CategoryEditForm';
 import MyPosts from "./post/MyPosts";
+import SubscribedPosts from "./post/SubcribedPosts";
 import PostComments from "./Comment/PostComments";
 
 
@@ -55,6 +56,10 @@ export default function ApplicationViews() {
 
         <Route path="/post/myposts" exact>
           {isLoggedIn ? <MyPosts /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/post/subscribedPosts" exact>
+          {isLoggedIn ? <SubscribedPosts /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/post/add" exact>
