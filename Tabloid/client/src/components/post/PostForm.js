@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import { CategoryContext } from "../../providers/CategoryProvider";
+import { ImageContext } from "../../providers/ImageUploadProvider";
 import { useHistory } from "react-router-dom";
 
 const PostForm = () => {
@@ -9,7 +10,9 @@ const PostForm = () => {
     const { category, getAllCategories } = useContext(CategoryContext);
     const [isLoading, setIsLoading] = useState(false);
 
-    // Use this hook to allow us to programatically redirect users
+    const { uploadImage } = useContext(ImageContext)
+    const [theFile, setFile] = useState(null)
+
     const history = useHistory();
     const currentUser = JSON.parse(sessionStorage.userProfile);
 
@@ -23,10 +26,20 @@ const PostForm = () => {
         setPost(stateToChange)
     }
 
+    const handleImgChange = e => {
+        setFile(e.target.files[0]);
+    }
+
     const submit = (e) => {
         setIsLoading(true)
         post.createDateTime = new Date();
         post.userProfileId = currentUser.id;
+
+        if (theFile != null) {
+            post.imageLocation = theFile.name;
+            uploadImage(theFile);
+        };
+
         post.categoryId = parseInt(post.categoryId);
         addPost(post).then((p) => {
             history.push(`/post/${p.id}`);
@@ -51,12 +64,12 @@ const PostForm = () => {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="imageLocation" className="control-label">Header Image URL</label>
+                            <label htmlFor="imageLocation" className="control-label">Header Image</label>
                             <input
                                 id="imageLocation"
+                                type="file"
                                 className="form-control"
-                                onChange={handleFieldChange}
-                                value={post.imageLocation}
+                                onChange={handleImgChange}
                             />
                         </div>
                         <div className="form-group">
