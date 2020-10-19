@@ -39,7 +39,6 @@ namespace Tabloid.Controllers
         }
         */
 
-        // POST api/<CommentController>
         [HttpPost]
         public IActionResult Post(Comment comment)
         {
@@ -47,7 +46,6 @@ namespace Tabloid.Controllers
             return CreatedAtAction("Get", new { id = comment.Id }, comment);
         }
 
-        // PUT api/<CommentController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
@@ -55,8 +53,10 @@ namespace Tabloid.Controllers
 
         // DELETE api/<CommentController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            _commentRepository.DeleteComment(id);
+            return NoContent();
         }
     }
 }
