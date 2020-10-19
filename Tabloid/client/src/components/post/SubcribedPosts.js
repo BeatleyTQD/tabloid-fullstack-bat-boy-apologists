@@ -12,10 +12,7 @@ const SubscribedPosts = () => {
 
     return (
         <div className="container">
-            <h1>My Posts</h1>
-            <p>
-                <Link to={`/post/add`} className="btn btn-primary" title="New Post">New Post</Link>
-            </p>
+            <h1>Subscribed Posts</h1>
             <table className="table table-striped">
                 <thead>
                     <tr>
