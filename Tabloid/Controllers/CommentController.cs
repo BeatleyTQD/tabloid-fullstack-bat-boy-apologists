@@ -30,14 +30,14 @@ namespace Tabloid.Controllers
             return Ok(_commentRepository.GetCommentsForPost(id));
         }
 
-        /*
+        
         // GET api/<CommentController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult GetById(int id)
         {
-            return "value";
+            return Ok(_commentRepository.GetCommentById(id));
         }
-        */
+        
 
         [HttpPost]
         public IActionResult Post(Comment comment)
