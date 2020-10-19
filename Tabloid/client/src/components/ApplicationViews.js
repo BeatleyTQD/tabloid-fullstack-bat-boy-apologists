@@ -21,6 +21,7 @@ import CategoryEditForm from './Category/CategoryEditForm';
 import MyPosts from "./post/MyPosts";
 import SubscribedPosts from "./post/SubcribedPosts";
 import PostComments from "./Comment/PostComments";
+import CommentForm from "./Comment/CommentForm";
 
 
 
@@ -79,10 +80,13 @@ export default function ApplicationViews() {
         </Route>
 
         {/* ///////////COMMENTS/////////////// */}
-        <Route path="/comments/:id" >
+        <Route path="/post/:id/comments" exact >
           {isLoggedIn ? <PostComments /> : <Redirect to="/login" />}
         </Route>
 
+        <Route path="/post/:id/addcomment">
+          {isLoggedIn ? <CommentForm /> : <Redirect to="/login" />}
+        </Route>
 
         {/* ///////////TAGS//////////// */}
         <Route path="/tags" exact>

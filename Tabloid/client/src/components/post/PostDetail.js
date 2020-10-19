@@ -71,7 +71,11 @@ const PostDetail = () => {
     }
 
     const Comments = () => {
-        history.push(`/comments/${id}`)
+        history.push(`/post/${id}/comments`)
+    }
+
+    const AddComment = () => {
+        history.push(`/post/${id}/addcomment`)
     }
 
     let imageTest = null;
@@ -164,7 +168,8 @@ const PostDetail = () => {
                                 <p className="col-sm-12 mt-5">{post.content}</p>
                             </section>
                         </section>
-                        <Button color="info" onClick={Comments}>Comments</Button>
+                        <Button color="info" onClick={Comments}>View Comments</Button>
+                        <Button color="info" onClick={AddComment}>Add Comment</Button>
                     </div>
                 </div>
             ) : null

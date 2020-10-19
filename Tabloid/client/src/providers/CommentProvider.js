@@ -19,8 +19,20 @@ export const CommentProvider = (props) => {
         );
     };
 
+    const addComment = (comment) => {
+        return getToken().then((token) =>
+            fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(comment)
+            }));
+    };
+
     return (
-        <CommentContext.Provider value={{ comments, getCommentsForPost }}>
+        <CommentContext.Provider value={{ comments, getCommentsForPost, addComment }}>
             {props.children}
         </CommentContext.Provider>
     );
