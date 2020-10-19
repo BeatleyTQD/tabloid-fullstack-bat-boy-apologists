@@ -87,6 +87,8 @@ export default function Header() {
                  <NavLink tag={RRNavLink} className="navlink__color" to="/post/subscribedPosts">Subscribed</NavLink>
                 </NavItem>}
 
+                {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') != -1 ?
+
                 <NavItem>
                   <NavLink
                     className="navlink__color"
