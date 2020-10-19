@@ -16,11 +16,36 @@ export const CommentProvider = (props) => {
                     Authorization: `Bearer ${token}`,
                 }
             }).then((res) => res.json())
+                .then(setComments)
         );
     };
 
+    const addComment = (comment) => {
+        return getToken().then((token) =>
+            fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(comment)
+            }));
+    };
+
+    const deleteComment = (id) => {
+        return getToken().then((token) => {
+            fetch(`${apiUrl}/${id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            })
+        })
+    };
+
     return (
-        <CommentContext.Provider value={{ comments, getCommentsForPost }}>
+        <CommentContext.Provider value={{ comments, getCommentsForPost, addComment, deleteComment }}>
             {props.children}
         </CommentContext.Provider>
     );

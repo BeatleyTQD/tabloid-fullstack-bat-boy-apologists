@@ -7,8 +7,7 @@ import { Button } from 'reactstrap';
 
 export default function PostComments() {
     const [post, setPost] = useState();
-    const [comments, setComments] = useState([]);
-    const { getCommentsForPost } = useContext(CommentContext);
+    const { getCommentsForPost, comments } = useContext(CommentContext);
     const { getPost } = useContext(PostContext);
     const history = useHistory();
 
@@ -16,12 +15,15 @@ export default function PostComments() {
 
     useEffect(() => {
         const intId = parseInt(id)
-        getCommentsForPost(intId).then(setComments);
+        getCommentsForPost(intId);
         getPost(intId).then(setPost);
     }, []);
 
     const GoBack = () => {
         history.push(`/post/${id}`)
+    }
+    const AddComment = () => {
+        history.push(`/post/${id}/addcomment`)
     }
 
     if (!comments || !post) {
@@ -30,12 +32,12 @@ export default function PostComments() {
     return (
         <>
             <div className="container">
-                <h1 className="text-secondary">{post.title}</h1>
+                <h1 className="text-secondary">{post.title} <Button color="info" onClick={AddComment}>Add Comment</Button></h1>
                 <br />
                 {comments.map((comment) => (
                     <Comment key={comment.id} comment={comment} />
                 ))}
-                <Button color="info" onClick={GoBack}>Go Back</Button>
+                <Button color="secondary" onClick={GoBack}>Go Back</Button>
             </div>
         </>
     )
