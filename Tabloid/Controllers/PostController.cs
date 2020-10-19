@@ -40,6 +40,15 @@ namespace Tabloid.Controllers
         }
 
         [Authorize]
+        [HttpGet("subscribed")]
+        public IActionResult GetSubscribed()
+        {
+            UserProfile user = GetCurrentUserProfile();
+            int userId = user.Id;
+            return Ok(_postRepository.GetAllSubscribedPosts(userId));
+        }
+
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
