@@ -24,6 +24,7 @@ namespace Tabloid.Controllers
         }
 
         // GET: api/<CommentController>/5
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -33,6 +34,7 @@ namespace Tabloid.Controllers
         
         // GET api/<CommentController>/5
         [HttpGet]
+        [Authorize]
         [Route("GetById/{id}")]
         public IActionResult GetById(int id)
         {
@@ -40,6 +42,7 @@ namespace Tabloid.Controllers
         }
         
 
+        [Authorize]
         [HttpPost]
         public IActionResult Post(Comment comment)
         {
@@ -47,6 +50,7 @@ namespace Tabloid.Controllers
             return CreatedAtAction("Get", new { id = comment.Id }, comment);
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public void Put(Comment comment)
         {
@@ -54,6 +58,7 @@ namespace Tabloid.Controllers
         }
 
         // DELETE api/<CommentController>/5
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

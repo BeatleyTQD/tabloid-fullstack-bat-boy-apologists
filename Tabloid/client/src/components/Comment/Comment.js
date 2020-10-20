@@ -29,7 +29,7 @@ export default function Comment({ comment }) {
     if (comment.userProfileId === currentUserId || sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1) {
         userCheck =
             <>
-                <Button color="warning" onClick={Edit}>Edit</Button>{" "}
+               {comment.userProfileId === currentUserId ? <Button color="warning" onClick={Edit}>Edit</Button> : null}
                 <Button color="danger" onClick={toggle} >Delete</Button>{" "}
                 <Modal isOpen={modal} toggle={toggle}>
                     <ModalHeader toggle={toggle}>Are you sure you want to delete?</ModalHeader>
