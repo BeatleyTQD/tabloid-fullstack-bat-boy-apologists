@@ -61,7 +61,10 @@ export function UserProfileProvider(props) {
       });
   };
 
-  const getToken = () => firebase.auth().currentUser.getIdToken();
+  const getToken = () => {
+    firebase.auth().currentUser.getIdToken();
+
+  }
 
   const getUserProfile = (firebaseUserId) => {
     return getToken().then((token) =>
