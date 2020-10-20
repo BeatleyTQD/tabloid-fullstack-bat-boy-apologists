@@ -6,7 +6,7 @@ import { Button } from "reactstrap";
 
 const CommentEditForm = () => {
     const [comment, setComment] = useState();
-    const { getCommentById, updateComment } = useContext(CommentContext);
+    const { getCommentById, updateComment, getCommentsForPost } = useContext(CommentContext);
     const { id } = useParams();
     const history = useHistory();
 
@@ -29,7 +29,8 @@ const CommentEditForm = () => {
             content: comment.content
         };
         updateComment(editedComment)
-            .then(() => history.push(`/post/${comment.postId}/comments`));
+            .then(() => history.push(`/post/${comment.postId}/comments`))
+            .then(getCommentsForPost(comment.postId));
     }
 
     const Cancel = () => {

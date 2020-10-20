@@ -12,10 +12,12 @@ export default function Comment({ comment }) {
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
 
+    const deleteAndRefresh = () => {
+        return Promise.all([deleteComment(comment.id), getCommentsForPost(comment.postId)])
+    }
+
     const Delete = () => {
-        deleteComment(comment.id)
-            .then(toggle)
-            .then(getCommentsForPost(comment.postId));
+        deleteAndRefresh();
     }
 
     const Edit = () => {
