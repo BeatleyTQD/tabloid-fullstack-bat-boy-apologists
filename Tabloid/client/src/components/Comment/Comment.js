@@ -22,6 +22,7 @@ export default function Comment({ comment }) {
         history.push(`/comment/${comment.id}/edit`)
     }
 
+    //Checks to see if comment was written by current user. If so, displays options to edit and delete the comment.
     let userCheck;
     if (comment.userProfileId === currentUserId) {
         userCheck =
