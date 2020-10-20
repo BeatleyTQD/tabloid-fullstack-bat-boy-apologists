@@ -27,7 +27,6 @@ import CommentEditForm from "./Comment/CommentEditForm";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
-let fourFour = <div><h1>404</h1></div>
 
   return (
     <main className="main__applicationViews">
