@@ -37,15 +37,15 @@ export default function ApplicationViews() {
         </Route>
 
         <Route path="/category/add">
-          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <CategoryForm /> : <Redirect to="/login" />}
+          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <CategoryForm /> : isLoggedIn ? <Redirect to="/" /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/category" exact>
-          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <CategoryList /> : <Redirect to="/login" />}
+          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <CategoryList /> : isLoggedIn ? <Redirect to="/" />  : <Redirect to="/login" />}
         </Route>
 
         <Route path="/category/:id/edit" exact>
-          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <CategoryEditForm /> : <Redirect to="/login" />}
+          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <CategoryEditForm /> : isLoggedIn ? <Redirect to="/" />  : <Redirect to="/login" />}
         </Route>
 
 
@@ -88,34 +88,34 @@ export default function ApplicationViews() {
         </Route>
 
         <Route path="/comment/:id/edit">
-          {isLoggedIn ? <CommentEditForm /> : <Redirect to="/login" />}
+          {isLoggedIn ? <CommentEditForm /> :  <Redirect to="/login" />}
         </Route>
 
         {/* ///////////TAGS//////////// */}
         <Route path="/tags" exact>
-          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <TagList /> : <Redirect to="/login" />}
+          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <TagList /> : isLoggedIn ? <Redirect to="/" />  : <Redirect to="/login" />}
         </Route>
 
         <Route path="/tags/add">
-          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <TagForm /> : <Redirect to="/login" />}
+          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <TagForm /> : isLoggedIn ? <Redirect to="/" />  : <Redirect to="/login" />}
         </Route>
 
         <Route path="/tags/:id/edit" >
-          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <TagEditForm /> : <Redirect to="/login" />}
+          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <TagEditForm /> : isLoggedIn ? <Redirect to="/" />  : <Redirect to="/login" />}
         </Route>
 
 
         {/* ///////////USER PROFILES//////////// */}
         <Route path="/userprofiles" exact>
-          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <UserProfileList /> : <Redirect to="/login" />}
+          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <UserProfileList /> : isLoggedIn ? <Redirect to="/" />  : <Redirect to="/login" />}
         </Route>
 
         <Route path="/userprofiles/:id" exact>
-        {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <UserProfileDetails /> : <Redirect to="/login" />}
+        {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <UserProfileDetails /> : isLoggedIn ? <Redirect to="/" />  : <Redirect to="/login" />}
         </Route>
 
         <Route path="/userprofiles/edit/:id" exact>
-          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <UserProfileEdit /> : <Redirect to="/login" />}
+          {isLoggedIn && sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1 ? <UserProfileEdit /> : isLoggedIn ? <Redirect to="/" />  : <Redirect to="/login" />}
         </Route>
 
         <Route path="/login">
