@@ -5,7 +5,7 @@ export const PostContext = createContext();
 
 export const PostProvider = (props) => {
     const [posts, setPosts] = useState([]);
-    const [subscriptions, setSubscriptions ] = useState([""]);
+    const [subscriptions, setSubscriptions ] = useState([]);
     const { getToken } = useContext(UserProfileContext);
 
     const apiUrl = "/api/post";

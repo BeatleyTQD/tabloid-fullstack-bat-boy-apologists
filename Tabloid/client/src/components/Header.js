@@ -14,11 +14,17 @@ import { PostContext} from "../providers/PostProvider";
 
 export default function Header() {
   const { isLoggedIn, logout } = useContext(UserProfileContext);
-  const { subscriptions } = useContext(PostContext);
-  const [isOpen, setIsOpen] = useState(false);
-  const [subscribed, setSubscribed] = useState("")
-  const toggle = () => setIsOpen(!isOpen);
+  const { subscriptions,getSubscriptions } = useContext(PostContext);
   
+  const [isOpen, setIsOpen] = useState();
+  const toggle = () => setIsOpen(!isOpen);
+
+  
+  useEffect(()=>{
+    getSubscriptions();
+    
+  },[])
+
 
   return (
     <div>
