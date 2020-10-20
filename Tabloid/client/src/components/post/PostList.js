@@ -27,7 +27,7 @@ const PostList = () => {
                             Author
                         </th>
                         <th>
-                            Categor
+                            Category
                         </th>
                         <th>
                             Published

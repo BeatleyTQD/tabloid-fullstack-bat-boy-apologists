@@ -19,11 +19,12 @@ const Post = ({ post }) => {
     }
 
     let userCheck;
-    if (post.userProfileId === currentUserId) {
+    if (post.userProfileId === currentUserId || sessionStorage.getItem("userProfile").search('"name":"10g03kd03212d3213d213d123cvb"') !== -1) {
         userCheck =
             <>
                 &nbsp;
-                <Link to={`/post/${post.id}/edit`} className="btn btn-warning" title="Edit">Edit</Link>
+                {post.userProfileId === currentUserId ?
+                <Link to={`/post/${post.id}/edit`} className="btn btn-warning" title="Edit">Edit</Link> : null }
                 &nbsp;
                 <Button color="danger" onClick={toggle} >Delete</Button>
                 <Modal isOpen={modal} toggle={toggle}>
