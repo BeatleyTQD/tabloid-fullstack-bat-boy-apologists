@@ -22,7 +22,7 @@ import MyPosts from "./post/MyPosts";
 import SubscribedPosts from "./post/SubcribedPosts";
 import PostComments from "./Comment/PostComments";
 import CommentForm from "./Comment/CommentForm";
-
+import CommentEditForm from "./Comment/CommentEditForm";
 
 
 export default function ApplicationViews() {
@@ -86,6 +86,10 @@ export default function ApplicationViews() {
 
         <Route path="/post/:id/addcomment">
           {isLoggedIn ? <CommentForm /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/comment/:id/edit">
+          {isLoggedIn ? <CommentEditForm /> : <Redirect to="/login" />}
         </Route>
 
         {/* ///////////TAGS//////////// */}
