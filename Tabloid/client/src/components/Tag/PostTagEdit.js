@@ -51,7 +51,6 @@ const PostTagEdit = () => {
             
 
     const onSubmit = (data, evt) => {
-        console.log("Submitting..");
         Object.keys(data).forEach(key => {
             if (data[key] !== false) {
                 newTags.push(
@@ -60,7 +59,6 @@ const PostTagEdit = () => {
                     })
                 };   
         });
-        // console.log(newTags)
         deleteTagsByPostId(postId)
         .then((p)=> {
            if (!newTags.length > 0) {

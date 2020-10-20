@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import Post from "./Post"
-import { Link } from "react-router-dom";
+
 
 const SubscribedPosts = () => {
     const { posts, getSubscribedPosts } = useContext(PostContext);

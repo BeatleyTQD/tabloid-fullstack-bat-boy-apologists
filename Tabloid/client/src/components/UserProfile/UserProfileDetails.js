@@ -11,7 +11,7 @@ export default function UserProfileDetails() {
   useEffect(() => {
     getUserById(id).then(setUser);
   }, []);
-  console.log(user);
+ 
 
   if (!user) {
     return null;

@@ -35,9 +35,7 @@ export default function UserProfileEdit() {
     user.userTypeId = checkSelect();
     user.userType.id = user.userTypeId;
     user.userType.name = (user.userTypeId === 1) ? "Admin" : "Author";
-    console.log(user);
     saveUser(user).then((response) => {
-        console.log(response);
         if (response === true) {
           history.push("/userprofiles");
         } else {
