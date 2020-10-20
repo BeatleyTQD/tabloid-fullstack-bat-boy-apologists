@@ -16,6 +16,14 @@ p {
   line-height: 2rem;
 }
 
+.post,
+.div__home {
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 1s;
+}
 .post p {
   white-space: pre-wrap;
 }
@@ -48,10 +56,12 @@ Nav a:hover {
   color: greenyellow;
 }
 
+.container {
+}
+
 .div__home {
   margin: 0;
   height: 85vh;
-  /* background-color: #625772; */
   background-color: #fff;
   margin: 0 0 2em 0;
   color: rgb(99, 97, 97);
@@ -74,10 +84,6 @@ Nav a:hover {
   width: 20vw;
   padding-bottom: 2em;
 }
-
-/* .main__applicationViews {
-   background-color: #625772; 
-} */
 
 .header__home {
   background-color: #625772;
@@ -131,4 +137,13 @@ header.masthead {
 .span__posttag {
   font-size: 1em;
   padding-right: 1em;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
