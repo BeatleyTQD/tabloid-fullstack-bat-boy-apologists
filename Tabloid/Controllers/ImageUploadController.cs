@@ -23,7 +23,7 @@ namespace Tabloid.Controllers
         public async Task<IActionResult> Post(IFormFile body)
         {
             var saveFile = Path.Combine(_environment.ContentRootPath, "client", "public", body.FileName);
-            if (body.Length > 0)
+            if (body.Length > 0 && body.Length < 2100000)
             {
                 using (var stream = new FileStream(saveFile, FileMode.Create))
                 
