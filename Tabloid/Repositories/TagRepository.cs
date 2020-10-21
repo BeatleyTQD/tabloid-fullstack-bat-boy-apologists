@@ -137,10 +137,12 @@ namespace Tabloid.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"
-                     DELETE FROM Tag Where Id = @tagId;
-                        ";
-                    cmd.Parameters.AddWithValue("@tagId", tagId);
+                    cmd.CommandText = @"UPDATE PostTag 
+                                        SET TagId = 
+                                       (SELECT t.Id FROM Tag t
+                                        WHERE t.Name = 'Other') WHERE PostTag.TagId = @id;
+                                        DELETE Tag WHERE id = @id;";
+                    cmd.Parameters.AddWithValue("@id", tagId);
 
                     cmd.ExecuteNonQuery();
                 }

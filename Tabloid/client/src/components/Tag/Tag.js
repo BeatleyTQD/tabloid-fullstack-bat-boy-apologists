@@ -27,7 +27,7 @@ export default function Tag({ tag }) {
       <td>{tag.name}</td>
       <td>
         <Button color="warning" onClick={Edit}>Edit</Button>{" "}
-        <Button color="danger" onClick={toggle} >Delete</Button>{" "}
+        {tag.name.toLowerCase() !== "other" ? <Button color="danger" onClick={toggle} >Delete</Button> : null}
         <Modal isOpen={modal} toggle={toggle}>
           <ModalHeader toggle={toggle}>Are you sure you want to delete?</ModalHeader>
           <ModalFooter>
